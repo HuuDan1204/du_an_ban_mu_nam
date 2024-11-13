@@ -30,6 +30,8 @@ match ($act) {
         'danh-muc' => (new AdminDanhMucController())->danhSachDanhMuc(),
         'form-add-danh-muc' => (new AdminDanhMucController())->formAddDanhMuc(),
         'add-danh-muc' => (new AdminDanhMucController())->postAddDanhMuc(),
+        'form-sua-danh-muc' => (new AdminDanhMucController())->formEditDanhMuc(),
+        'sua-danh-muc' => (new AdminDanhMucController())->postEditDanhMuc(),
     
 
 };
