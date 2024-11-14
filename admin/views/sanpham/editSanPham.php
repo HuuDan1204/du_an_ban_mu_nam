@@ -63,9 +63,7 @@
               <div class="form-group">
                 <label for="hinh_anh">Hình ảnh</label>
                 <input type="file" id="inputName" class="form-control" name="hinh_anh" value="<?= $sanpham['hinh_anh'] ?>">
-                <?php if(isset($_SESSION['error']['hinh_anh'])) {?>
-                      <p class="text-danger"><?= $_SESSION['error']['hinh_anh'] ?></p>
-                      <?php }?> 
+               
               </div>
               <div class="form-group">
                 <label for="so_luong">Số lượng</label>
@@ -96,7 +94,9 @@
                   
                       <option <?= $sanpham['trang_thai'] == 1 ? 'selected' :'' ?> value="1">Còn hàng</option>
                       <option <?= $sanpham['trang_thai'] == 2 ? 'selected' :'' ?> value="1">Sắp dừng bán</option>
-                    
+                      <?php if(isset($_SESSION['error']['trang_thai'])) {?>
+                      <p class="text-danger"><?= $_SESSION['error']['trang_thai'] ?></p>
+                      <?php }?> 
                 </select>
             </div>
             <div class="form-group">

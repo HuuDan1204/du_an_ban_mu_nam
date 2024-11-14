@@ -55,15 +55,15 @@
                   </div>
                   <div class="form-group col-6">
                     <label >Hình ảnh</label>
-                    <input type="file" name="hinh_anh" class="form-control" placeholder="Nhập hình ảnh">
+                    <input type="file" name="hinh_anh" class="form-control" >
                     <?php if(isset($_SESSION['error']['hinh_anh'])) {?>
                       <p class="text-danger"><?= $_SESSION['error']['hinh_anh'] ?></p>
                       <?php }?>
                   </div>
-                  <!-- <div class="form-group col-6">
+                  <div class="form-group col-6">
                     <label >Album ảnh</label>
                     <input type="file" class="form-control" name="img_array[]" multiple >
-                  </div> -->
+                  </div>
                   <div class="form-group col-6">
                     <label >Số lượng</label>
                     <input type="number" name="so_luong" class="form-control" placeholder="Nhập số lượng">
