@@ -8,6 +8,8 @@ require_once '../commons/function.php'; // Hàm hỗ trợ
 require_once './controllers/AdminDanhMucController.php';
 require_once './controllers/AdminSanPhamController.php';
 require_once './controllers/AdminDonHangController.php';
+require_once './controllers/AdminTaiKhoanController.php';
+
 
 
 
@@ -15,6 +17,8 @@ require_once './controllers/AdminDonHangController.php';
 require_once './models/AdminSanPham.php';
 require_once './models/AdminDonHang.php';
 require_once './models/AdminDanhMuc.php';
+require_once './models/AdminTaiKhoan.php';
+
 
 // Route
 $act = $_GET['act'] ?? '/';
@@ -51,5 +55,30 @@ match ($act) {
     'form-sua-don-hang' => (new AdminDonHangConTroller())->formEditDonHang(),
     'sua-don-hang' => (new AdminDonHangConTroller())->postEditDonHang(),
     'chi-tiet-don-hang' => (new AdminDonHangConTroller())->infoDonHang(),
+
+
+    // route tài khoản
+      'list-tai-khoan-quan-tri-vien' => (new AdminTaiKhoanController())->danhSachQuanTri(),
+      'form-them-quan-tri' => (new AdminTaiKhoanController())->formAddQuanTri(),
+      'them-quan-tri' => (new AdminTaiKhoanController())->postAddQuanTri(),
+      'form-sua-quan-tri' => (new AdminTaiKhoanController())->formEditQuanTri(),
+      'sua-quan-tri' => (new AdminTaiKhoanController())->postEditQuanTri(),
+
+      'reset-password' => (new AdminTaiKhoanController())->resetPassword(),
+
+      'list-tai-khoan-khach-hang' => (new AdminTaiKhoanController())->danhSachKhachHang(),
+      'form-sua-khach-hang' => (new AdminTaiKhoanController())->formEditKhachHang(),
+      'sua-khach-hang' => (new AdminTaiKhoanController())->postEditKhachHang(),
+      'chi-tiet-khach-hang' => (new AdminTaiKhoanController())->infoKhachHang(),
+      
+      'form-sua-thong-tin-ca-nhan-quan-tri' => (new AdminTaiKhoanController())->formEditCaNhanQT(),
+        // 'sua-thong-tin-ca-nhan-quan-tri' => (new AdminTaiKhoanController())->postEditCaNhanQT(),
+        'sua-mat-khau-ca-nhan-quan-tri' => (new AdminTaiKhoanController())->postEditMatKhauCaNhan(),
+
+
+        // route đăng nhập
+        'login-admin' => (new AdminTaiKhoanController())->formLogin(),
+        'check-login-admin' => (new AdminTaiKhoanController())->login(),
+        'logout-admin' => (new AdminTaiKhoanController())->logout(),
 
 };

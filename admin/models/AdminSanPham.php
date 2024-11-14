@@ -199,7 +199,6 @@ class AdminSanPham
     }
 
     // bình luận
-
     public function getBinhLuanFromKhachHang($id){
         try {
             $sql = 'SELECT binh_luans.*,san_phams.ten_san_pham 
