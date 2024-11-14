@@ -2,10 +2,8 @@
   <!-- Navbar -->
   <?php include './views/layouts/navbar.php'; ?>
   <!-- /.navbar -->
-
   <!-- Main Sidebar Container -->
   <?php include './views/layouts/sidebar.php'; ?>
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -13,7 +11,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Quản lý sách</h1>
+            <h1>Quản lý danh sách đơn hàng</h1>
           </div>
        
         </div>
@@ -28,59 +26,53 @@
             <!-- /.card -->
 
             <div class="card">
-              <div class="card-header">
+              <!-- <div class="card-header">
                 <a href="<?= BASE_URL_ADMIN.'?act=form-them-san-pham';?>">
               <button class="btn btn-success">Thêm sách</button>
               </a>
-              </div>
+              </div> -->  
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
                     <th>STT</th>
-                    <th>Tên sản phẩm</th>
-                    <th>Ảnh sản phẩm</th>
-                    <th>Giá tiền</th>
-                    <th>Số lượng</th>
-                    <th>Danh mục</th>
+                    <th>Mã đơn hàng</th>
+                    <th>Tên người nhận</th>
+                    <th>Số điện thoại</th>
+                    <th>Ngày đặt</th>
+                    <th>Tồng tiền</th>
                     <th>Trạng thái</th>
                     <th>Thao tác</th>
                   </tr>
                   </thead>
                   <tbody>
-                    <?php foreach($listsanpham as $key=>$sanpham):?>
+                    <?php foreach($listdonhang as $key=>$donhang):?>
                       <tr>
                       <td><?= $key+1 ?></td>
-                      <td><?= $sanpham['ten_san_pham']?></td>
-                      <td>
-                        <img src="<?= BASE_URL . $sanpham['hinh_anh']?>" style="width : 100px" alt=""
-                        onerror="this.onerror=null;this.src='https://images.fptplay.net/media/OTT/VOD/2023/01/09/thien-su-nha-ben-fpt-play-1673229755340_Landscape.jpg'"
-                        >
-                      </td>
-                      <td><?= $sanpham['gia_san_pham']?></td>
-                      <td><?= $sanpham['so_luong']?></td>
-                      <td><?= $sanpham['ten_danh_muc']?></td>
-                      <td><?= $sanpham['trang_thai'] == 1 ? 'Còn hàng' : 'Sắp dừng bán'; ?></td>
+                      <td><?= $donhang['ma_don_hang']?></td>
+                      <td><?= $donhang['ten_nguoi_nhan']?></td>
+                      <td><?= $donhang['sdt_nguoi_nhan']?></td>
+                      <td><?= $donhang['ngay_dat']?></td>
+                      <td><?= $donhang['tong_tien']?></td>
+                      <td><span class="badge badge-primary"><?= $donhang['ten_trang_thai']; ?></span></td>
                       <div class="btn-group" >
                       <td>
-                        <!-- <a href="<?= BASE_URL_ADMIN.'?act=chi-tiet-san-pham&id_san_pham='.$sanpham['id']?>"><button class="btn btn-primary"><i class="far fa-eye"></i></button></a> -->
-                        <a href="<?= BASE_URL_ADMIN.'?act=form-sua-san-pham&id_san_pham='.$sanpham['id']?>"><button class="btn btn-warning"><i class="fas fa-cog"></i></button></a>
-                        <a href="<?= BASE_URL_ADMIN.'?act=xoa-san-pham&id_san_pham='.$sanpham['id']?>"><button class="btn btn-danger" onclick="confirm('Bạn có muốn xóa sản phẩm không?')"><i class="fas fa-trash-alt"></i></button></a>
+                        <a href="<?= BASE_URL_ADMIN.'?act=chi-tiet-don-hang&id_don_hang='.$donhang['id']?>"><button class="btn btn-primary"><i class="far fa-eye"></i></button></a>
+                        <a href="<?= BASE_URL_ADMIN.'?act=form-sua-don-hang&id_don_hang='.$donhang['id']?>"><button class="btn btn-warning"><i class="fas fa-cog"></i></button></a>
                       </td>
                       </div>
-                      
                       </tr>
                     <?php endforeach; ?>
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th>STT</th>
-                    <th>Tên sản phẩm</th>
-                    <th>Ảnh sản phẩm</th>
-                    <th>Giá tiền</th>
-                    <th>Số lượng</th>
-                    <th>Danh mục</th>
+                  <th>STT</th>
+                    <th>Mã đơn hàng</th>
+                    <th>Tên người nhận</th>
+                    <th>Số điện thoại</th>
+                    <th>Ngày đặt</th>
+                    <th>Tồng tiền</th>
                     <th>Trạng thái</th>
                     <th>Thao tác</th>
                   </tr>
