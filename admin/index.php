@@ -26,12 +26,21 @@ $act = $_GET['act'] ?? '/';
 
 
 match ($act) {
-    // Trang chủ
+    // Route Danh mục
         'danh-muc' => (new AdminDanhMucController())->danhSachDanhMuc(),
         'form-add-danh-muc' => (new AdminDanhMucController())->formAddDanhMuc(),
         'add-danh-muc' => (new AdminDanhMucController())->postAddDanhMuc(),
         'form-sua-danh-muc' => (new AdminDanhMucController())->formEditDanhMuc(),
         'sua-danh-muc' => (new AdminDanhMucController())->postEditDanhMuc(),
-    
+        'xoa-danh-muc' => (new AdminDanhMucConTroller())->deleteDanhMuc(),
+
+    // Route sản phẩm
+    'san-pham' => (new AdminSanPhamConTroller())->danhSachSanPham(),
+    'form-them-san-pham' => (new AdminSanPhamConTroller())->formAddSanPham(),
+    'them-san-pham' => (new AdminSanPhamController())->postAddSanPham(),
+    'form-sua-san-pham' => (new AdminSanPhamConTroller())->formEditSanPham(),
+    'sua-san-pham' => (new AdminSanPhamConTroller())->postEditSanPham(),
+    'xoa-san-pham' => (new AdminSanPhamConTroller())->deleteSanPham(),
+    'chi-tiet-san-pham' => (new AdminSanPhamConTroller())->infoSanPham(),
 
 };
