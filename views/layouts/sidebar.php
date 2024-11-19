@@ -5,21 +5,14 @@
                     <div class="hero__categories">
                         <div class="hero__categories__all">
                             <i class="fa fa-bars"></i>
-                            <span>All departments</span>
+                            <span>Tất cả danh mục</span>
                         </div>
+                        <?php foreach($listDanhMuc as $danhMuc ) {?>
                         <ul>
-                            <li><a href="#">Fresh Meat</a></li>
-                            <li><a href="#">Vegetables</a></li>
-                            <li><a href="#">Fruit & Nut Gifts</a></li>
-                            <li><a href="#">Fresh Berries</a></li>
-                            <li><a href="#">Ocean Foods</a></li>
-                            <li><a href="#">Butter & Eggs</a></li>
-                            <li><a href="#">Fastfood</a></li>
-                            <li><a href="#">Fresh Onion</a></li>
-                            <li><a href="#">Papayaya & Crisps</a></li>
-                            <li><a href="#">Oatmeal</a></li>
-                            <li><a href="#">Fresh Bananas</a></li>
+                            <li><a href="#"><?= $danhMuc['ten_danh_muc'];  ?></a></li>
+                            
                         </ul>
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="col-lg-9">
@@ -27,11 +20,11 @@
                         <div class="hero__search__form">
                             <form action="#">
                                 <div class="hero__search__categories">
-                                    All Categories
+                                    Tất cả danh mục
                                     <span class="arrow_carrot-down"></span>
                                 </div>
-                                <input type="text" placeholder="What do yo u need?">
-                                <button type="submit" class="site-btn">SEARCH</button>
+                                <input type="text" placeholder="Bạn muốn tìm kiếm gì?">
+                                <button type="submit" class="site-btn">TÌm kiếm</button>
                             </form>
                         </div>
                         <div class="hero__search__phone">
@@ -39,16 +32,16 @@
                                 <i class="fa fa-phone"></i>
                             </div>
                             <div class="hero__search__phone__text">
-                                <h5>+65 11.188.888</h5>
-                                <span>support 24/7 time</span>
+                                <h5>+84 395 069 694</h5>
+                                <span>Hỗ trợ 24/7</span>
                             </div>
                         </div>
                     </div>
-                    <div class="hero__item set-bg" data-setbg="./assets/img/hero/banner.jpg">
-                        <div class="hero__text">
-                            <span>FRUIT FRESH</span>
-                            <h2>Vegetable <br />100% Organic</h2>
-                            <p>Free Pickup and Delivery Available</p>
+                    <div class="hero__item set-bg" data-setbg="./uploads/1731568019anh3.jpg">
+                        <div class="hero__text"  >
+                            <span style="color:white ; ">FRUIT FRESH</span>
+                            <h2 style="color:white ; " >Vegetable <br />100% Organic</h2>
+                            <p style="color:white ; " >Free Pickup and Delivery Available</p>
                             <a href="#" class="primary-btn">SHOP NOW</a>
                         </div>
                     </div>

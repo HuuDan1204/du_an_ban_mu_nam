@@ -7,9 +7,9 @@
                             <a href="./index.html"><img src="./assets/img/logo.png" alt=""></a>
                         </div>
                         <ul>
-                            <li>Address: 60-49 Road 11378 New York</li>
-                            <li>Phone: +65 11.188.888</li>
-                            <li>Email: hello@colorlib.com</li>
+                            <li>Địa chỉ : Minh Khai - Vũ Thư - Thái Bình </li>
+                            <li>Điện thoại: +84 395 069 694 </li>
+                            <li>Email: iamvuahaitac1@gmail.com</li>
                         </ul>
                     </div>
                 </div>

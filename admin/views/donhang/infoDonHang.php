@@ -14,7 +14,7 @@
                     <h1>Quản lý danh sách đơn hàng - Đơn hàng : <?= $donhang['ma_don_hang'] ?> </h1>
                 </div>
                 <div class="col-sm-2">
-                    <form action="" method="post">
+                    <!-- <form action="" method="post">
                         <select name="" id="" class="form-group">
                             <?php foreach ($listTrangThaiDonHang as $key => $trangthai) { ?>
                                 <option 
@@ -25,7 +25,7 @@
                                 </option>
                             <?php } ?>
                         </select>
-                    </form>
+                    </form> -->
                 </div>
             </div>
         </div><!-- /.container-fluid -->

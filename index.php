@@ -7,8 +7,12 @@ require_once './commons/function.php'; // Hàm hỗ trợ
 // Require toàn bộ file Controllers
 require_once './controllers/HomeController.php';
 
+
 // Require toàn bộ file Models
 require_once './models/SanPham.php';
+require_once './models/DanhMucClient.php';
+require_once './admin/models/AdminSanPham.php';
+
 
 // Route
 $act = $_GET['act'] ?? '/';
@@ -25,10 +29,10 @@ $act = $_GET['act'] ?? '/';
 match ($act) {
     // Trang chủ
 
-    '/' => (new HomeController()) -> home(),
+    // '/' => (new HomeController()) -> danhSachSanPham(),
     // 'trangchu' =>(new HomeController())->trangChu(),
     'danh-sach-san-pham' => (new HomeController ()) ->danhSachSanPham(), 
-    // 'cart' => (new HomeController ()) ->danhSachSanPham(), 
+    // 'cart' => (new AdminDanhMuc ()) ->danhSachSanPham(), 
 
 
 };
