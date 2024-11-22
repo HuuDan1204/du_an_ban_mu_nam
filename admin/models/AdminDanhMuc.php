@@ -66,6 +66,22 @@ class AdminDanhMuc{
             echo "Loi" .$e->getMessage();
         }
     }
+    public function updateDanhMucSanPham($id){
+        try{
+           $sql = 'UPDATE san_phams SET danh_muc_id = 0 WHERE danh_muc_id = :id ';
+            $stmt = $this->conn->prepare($sql);
+        //   var_dump($ten_danh_muc);die;
+            $stmt->execute([
+                
+                ':id' => $id,
+            ]);
+        //   var_dump($ten_danh_muc);die;
+            
+            return true ;
+        } catch (Exception $e) {
+            echo "Loi" .$e->getMessage();
+        }
+    }
     public function destroyDanhMuc($id)
     {
         try {

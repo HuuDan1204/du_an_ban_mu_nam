@@ -87,7 +87,7 @@
                                     Thông tin đơn hàng :
                                     <address>
                                         <strong>Mã đơn hàng : <?= $donhang['ma_don_hang']; ?> </strong><br>
-                                        Tổng tiền: <?= $donhang['tong_tien']; ?> <br>
+                                        Tổng tiền: <?= number_format( $donhang['tong_tien'])  ?>VND <br>
                                         Ghi chú : <?= $donhang['ghi_chu']; ?><br>
                                         Phương thức thanh toán : <?= $donhang['ten_phuong_thuc']; ?>
                                     </address>
@@ -114,11 +114,11 @@
                                             <?php foreach ($sanPhamDonHang as $key => $sanpham) { ?>
                                                 <tr>
                                                     <td><?= $key + 1 ?></td>
-                                                    <td><?= $sanpham['ten_san_pham'] ?></td>
-                                                    <td><?= $sanpham['don_gia'] ?></td>
+                                                    <td><?= $sanpham['ten_san_pham'];  ?></td>
+                                                    <td><?=  number_format($sanpham['don_gia'])  ?>VND</td>
                                                     <td><?= $sanpham['so_luong'] ?></td>
-                                                    <td><?= $sanpham['thanh_tien'] ?></td>
-                                                    <?php $tong_tien += $sanpham['thanh_tien']; ?>
+                                                    <td><?= number_format($sanpham['don_gia']*$sanpham['so_luong']) ?></td>
+                                                    <?php number_format($tong_tien += $sanpham['thanh_tien']); ?>
                                                 </tr>
                                             <?php } ?>
                                         </tbody>
@@ -138,7 +138,7 @@
                                         <table class="table">
                                             <tr>
                                                 <th style="width:50%">Thành tiền:</th>
-                                                <td><?= $tong_tien ?></td>
+                                                <td><?=number_format( $tong_tien )?></td>
                                             </tr>
                                             <!-- <tr>
                                                 <th>Tax (9.3%)</th>
@@ -146,11 +146,12 @@
                                             </tr> -->
                                             <tr>
                                                 <th>Phí vận chuyển:</th>
-                                                <td>30.000</td>
+                                                <!-- <td><?php $phiShip = ''; if($donHang['dia_chi']==="Hà Nội"){ $phiShip = 0 ;} else {$phiShip = 20 ;}  ?><?= $phiShip ?></td> -->
+                                                 <td><?= number_format(30000) ?></td>
                                             </tr>
                                             <tr>
                                                 <th>Tổng tiền:</th>
-                                                <td><?= $tong_tien + 30000 ?></td>
+                                                <td><?= number_format($tong_tien + 30000) ?></td>
                                             </tr>
                                         </table>
                                     </div>

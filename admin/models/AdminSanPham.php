@@ -21,6 +21,7 @@ class AdminSanPham
             echo "Lỗi" . $e->getMessage();
         }
     }
+    
     public function addSanPham(
         $ten_san_pham
         ,

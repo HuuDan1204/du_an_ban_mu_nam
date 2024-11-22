@@ -32,9 +32,10 @@
             // $listDonHang = $this->modelDonHang->getListAnhDonHang($id);
             $listTrangThaiDonHang = $this->modelDonHang->getAllTrangThaiDonHang();
           //  var_dump($danhmuc);die();
-          deleteSessionError();
+          
             if($donhang){
             require_once './views/donhang/editDonHang.php';
+            deleteSessionError();
             }
             else{
                 header('location:'.BASE_URL_ADMIN .'?act=don-hang');
@@ -71,11 +72,11 @@
                     $error['trang_thai_id'] = 'Trạng thái đơn hàng phải chọn ';
                 }
                 $_SESSION['error'] = $error ;
-        //    var_dump($error);die;
+           var_dump($error);die;
            // không lỗi thì tiền hành sửa
                 if(empty($error)){
                 //    var_dump('oke');
-               $this->modelDonHang->updateDonHang(
+               $status = $this->modelDonHang->updateDonHang(
                                                 $don_hang_id
                                                 ,$ten_nguoi_nhan
                                                 ,$sdt_nguoi_nhan
@@ -84,7 +85,7 @@
                                                 ,$ghi_chu
                                                 ,$trang_thai_id
                                                 );
-                //    var_dump($abc);die;
+                //    print_r($status);
 
                    header("location: ".BASE_URL_ADMIN . '?act=don-hang' );
                    exit();

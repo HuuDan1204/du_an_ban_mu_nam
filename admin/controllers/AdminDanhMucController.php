@@ -76,6 +76,7 @@ class AdminDanhMucController{
     }
     public function deleteDanhMuc(){
       $id = $_GET['id_danh_muc'];
+      $danhmuc = $this->modelDanhMuc->updateDanhMucSanPham($id);
       $danhmuc = $this->modelDanhMuc->getDetailDanhMuc($id);
       if($danhmuc){
           $this->modelDanhMuc->destroyDanhMuc($id);

@@ -16,6 +16,7 @@ class HomeController
             // echo "Danh sach san pham";
             $listSanPham = $this ->modelSanPham->getAllSanPham();
             $listDanhMuc = $this ->modelDanhMuc->getAllDanhMuc();
+            $listSanPhamFT = $this ->modelSanPham->getSanPhamFT();
             // var_dump($listSanPham);die();
             require_once './views/danhmuc/home.php';
         }

@@ -31,6 +31,18 @@ class SanPham
             echo "Loi" . $e->getMessage();
         }
     }
+    public function getSanPhamFT()
+    {
+        try {
+            $sql = 'SELECT * FROM san_phams ORDER BY ngay_nhap DESC LIMIT 8 
+            ';
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            echo "Lỗi" . $e->getMessage();
+        }
+    }
 
 
 }

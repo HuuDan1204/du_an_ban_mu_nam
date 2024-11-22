@@ -30,7 +30,7 @@
             <div class="card">
               <div class="card-header">
                 <a href="<?= BASE_URL_ADMIN.'?act=form-them-san-pham';?>">
-              <button class="btn btn-success">Thêm sách</button>
+              <button class="btn btn-success">Thêm sản phẩm</button>
               </a>
               </div>
               <!-- /.card-header -->

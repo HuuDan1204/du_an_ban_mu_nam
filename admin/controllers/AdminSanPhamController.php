@@ -43,9 +43,9 @@
                 if(empty($gia_san_pham)){
                     $error['gia_san_pham'] = 'Giá sản phẩm không được bỏ trống ';
                 }
-                if(empty($gia_khuyen_mai)){
-                    $error['gia_khuyen_mai'] = 'Giá khuyễn mãi sản phẩm không được bỏ trống ';
-                }
+                // if(empty($gia_khuyen_mai)){
+                //     $error['gia_khuyen_mai'] = 'Giá khuyễn mãi sản phẩm không được bỏ trống ';
+                // }
                 if(empty($so_luong)){
                     $error['so_luong'] = 'Số lượng không được bỏ trống ';
                 }
@@ -149,9 +149,9 @@
                 if(empty($gia_san_pham)){
                     $error['gia_san_pham'] = 'Giá sản phẩm không được bỏ trống ';
                 }
-                if(empty($gia_khuyen_mai)){
-                    $error['gia_khuyen_mai'] = 'Giá khuyễn mãi sản phẩm không được bỏ trống ';
-                }
+                // if(empty($gia_khuyen_mai)){
+                //     $error['gia_khuyen_mai'] = 'Giá khuyễn mãi sản phẩm không được bỏ trống ';
+                // }
                 if(empty($so_luong)){
                     $error['so_luong'] = 'Số lượng không được bỏ trống ';
                 }

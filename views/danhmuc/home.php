@@ -38,9 +38,8 @@
                        
                         <ul>
                             <?php foreach($listDanhMuc as $danhMuc ){ ?>
-                            <!-- <li class="active" data-filter="*">All</li> -->
-                               <li ><?= $danhMuc['ten_danh_muc'] ?></li>
-                    <!-- <?php }?> -->
+                               <li ><?= $danhMuc['ten_danh_muc']  ?></li>
+                    <?php }?>
                         </ul>
                       
                     </div>
@@ -48,7 +47,7 @@
             </div>
             
             <div class="row featured__filter">
-            <?php foreach($listSanPham as $sanPham ) {?>
+            <?php foreach($listSanPhamFT as $sanPham ) {?>
                 <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg">

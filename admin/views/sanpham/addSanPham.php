@@ -33,8 +33,8 @@
               <form action="<?= BASE_URL_ADMIN.'/?act=them-san-pham';?>" method="post" enctype="multipart/form-data"  >
                 <div class="card-body row">
                   <div class="form-group col-12">
-                    <label >Tên sách</label>
-                    <input type="text" name="ten_san_pham" class="form-control" placeholder="Nhập tên sách">
+                    <label >Tên mũ</label>
+                    <input type="text" name="ten_san_pham" class="form-control" placeholder="Nhập tên sản phẩm  ">
                     <?php if(isset($_SESSION['error']['ten_san_pham'])) {?>
                       <p class="text-danger"><?= $_SESSION['error']['ten_san_pham'] ?></p>
                       <?php }?>
@@ -49,9 +49,9 @@
                   <div class="form-group col-6">
                     <label >Giá khuyến mãi</label>
                     <input type="text" name="gia_khuyen_mai" class="form-control" placeholder="Nhập giá khuyễn mãi">
-                    <?php if(isset($_SESSION['error']['gia_khuyen_mai'])) {?>
+                    <!-- <?php if(isset($_SESSION['error']['gia_khuyen_mai'])) {?>
                       <p class="text-danger"><?= $_SESSION['error']['gia_khuyen_mai'] ?></p>
-                      <?php }?>
+                      <?php }?> -->
                   </div>
                   <div class="form-group col-6">
                     <label >Hình ảnh</label>
