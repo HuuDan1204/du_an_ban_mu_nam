@@ -31,12 +31,16 @@ class AdminTaiKhoanController
       $ho_ten = $_POST['ho_ten'] ?? '';
       $email = $_POST['email'] ?? '';
       $so_dien_thoai = $_POST['so_dien_thoai']?? '';
+      $dia_chi = $_POST['dia_chi']?? '';
       $error = [];
       if (empty($ho_ten)) {
         $error['ho_ten'] = 'Họ tên không được bỏ trống ';
       }
       if (empty($email)) {
         $error['email'] = 'Email không được bỏ trống ';
+      }
+      if (empty($dia_chi)) {
+        $error['dia_chi'] = 'Địa chỉ không được bỏ trống ';
       }
       if (empty($so_dien_thoai)) {
         $error['so_dien_thoai'] = 'Số điện thoại không được bỏ trống ';
@@ -45,9 +49,9 @@ class AdminTaiKhoanController
 
       if (empty($error)) {
         $password = password_hash('shinamahiru', PASSWORD_BCRYPT);
-        //  var_dump($ho_ten);die;
+        //  var_dump($error);die;
         $chuc_vu_id = 1;
-        $dan = $this->modelTaiKhoan->insertTaiKhoan($ho_ten, $email, $password, $chuc_vu_id);
+        $dan = $this->modelTaiKhoan->insertTaiKhoan($ho_ten, $email, $so_dien_thoai,$dia_chi ,$password, $chuc_vu_id);
         // var_dump($dan);die;
         header("location: " . BASE_URL_ADMIN . '?act=list-tai-khoan-quan-tri-vien');
         exit();
@@ -74,10 +78,19 @@ class AdminTaiKhoanController
       // lssyd ra dữ liệu
 // lấy ra dữ liệu cũ của sản phẩm
       $quan_tri_id = $_POST['quan_tri_id'] ?? null;
+      $old_quan_tri = $this->modelTaiKhoan->getDetailTaiKhoan($quan_tri_id);
+      $old_file = $old_quan_tri['anh_dai_dien'];
       $ho_ten = $_POST['ho_ten'] ?? null;
       $email = $_POST['email'] ?? null;
       $so_dien_thoai = $_POST['so_dien_thoai'];
-      $trang_thai = $_POST['trang_thai'] ?? null;
+      $ngay_sinh = $_POST['ngay_sinh']??"" ; 
+                
+      $gioi_tinh = $_POST['gioi_tinh'] ?? "";
+      $mat_khau = $_POST['mat_khau']?? "";
+      $trang_thai = $_POST['trang_thai']?? "";
+      $dia_chi = $_POST['dia_chi']?? "";         
+      $hinh_anh= $_FILES['anh_dai_dien'] ?? NULL;
+
 
       // var_dump($_POST);die;
       $error = [];

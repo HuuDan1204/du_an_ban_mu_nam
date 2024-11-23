@@ -20,11 +20,11 @@ class AdminTaiKhoan
             echo "Lỗi" . $e->getMessage();
         }
     }
-    public function insertTaiKhoan($ho_ten, $email, $password, $chuc_vu_id)
+    public function insertTaiKhoan($ho_ten, $email,$so_dien_thoai,$dia_chi,$password, $chuc_vu_id)
     {
         try {
-            $sql = 'INSERT INTO tai_khoans (ho_ten,email,mat_khau,chuc_vu_id) 
-            VALUES (:ho_ten,:email,:password,:chuc_vu_id)
+            $sql = 'INSERT INTO tai_khoans (ho_ten,email,so_dien_thoai,dia_chi,mat_khau,chuc_vu_id) 
+            VALUES (:ho_ten,:email,:so_dien_thoai,:dia_chi,:password,:chuc_vu_id)
             ';
             $stmt = $this->conn->prepare($sql);
             // var_dump($stmt);die;
@@ -32,6 +32,8 @@ class AdminTaiKhoan
                 ':ho_ten' => $ho_ten,
                 ':email' => $email,
                 ':password' => $password,
+                ':so_dien_thoai' => $so_dien_thoai,
+                ':dia_chi' => $dia_chi,
                 ':chuc_vu_id' => $chuc_vu_id,
             ]);
             return true;

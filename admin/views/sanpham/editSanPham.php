@@ -56,9 +56,7 @@
               <div class="form-group">
                 <label >Giá khuyến mãi </label>
                 <input type="number"  class="form-control" name="gia_khuyen_mai" value="<?= $sanpham['gia_khuyen_mai'] ?>">
-                <?php if(isset($_SESSION['error']['gia_khuyen_mai'])) {?>
-                      <p class="text-danger"><?= $_SESSION['error']['gia_khuyen_mai'] ?></p>
-                      <?php }?> 
+               
               </div>
               <div class="form-group">
                 <label for="hinh_anh">Hình ảnh</label>
@@ -93,7 +91,7 @@
                 <select name="trang_thai" class="form-control custom-select">
                   
                       <option <?= $sanpham['trang_thai'] == 1 ? 'selected' :'' ?> value="1">Còn hàng</option>
-                      <option <?= $sanpham['trang_thai'] == 2 ? 'selected' :'' ?> value="1">Sắp dừng bán</option>
+                      <option <?= $sanpham['trang_thai'] == 2 ? 'selected' :'' ?> value="2">Dừng bán</option>
                       <?php if(isset($_SESSION['error']['trang_thai'])) {?>
                       <p class="text-danger"><?= $_SESSION['error']['trang_thai'] ?></p>
                       <?php }?> 

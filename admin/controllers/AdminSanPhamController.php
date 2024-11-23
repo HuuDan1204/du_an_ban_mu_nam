@@ -22,7 +22,7 @@
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $ten_san_pham = $_POST['ten_san_pham']?? '';
                 $gia_san_pham = $_POST['gia_san_pham']?? '';
-                $gia_khuyen_mai = $_POST['gia_khuyen_mai']?? '';
+                $gia_khuyen_mai = $_POST['gia_khuyen_mai'] ?? 0 ;
                 $so_luong = $_POST['so_luong']?? '';
                 $ngay_nhap = $_POST['ngay_nhap']?? '';
                 $danh_muc_id = $_POST['danh_muc_id'] ?? '' ;
@@ -43,9 +43,7 @@
                 if(empty($gia_san_pham)){
                     $error['gia_san_pham'] = 'Giá sản phẩm không được bỏ trống ';
                 }
-                // if(empty($gia_khuyen_mai)){
-                //     $error['gia_khuyen_mai'] = 'Giá khuyễn mãi sản phẩm không được bỏ trống ';
-                // }
+            
                 if(empty($so_luong)){
                     $error['so_luong'] = 'Số lượng không được bỏ trống ';
                 }
@@ -73,7 +71,7 @@
                                                 ,$mo_ta
                                                 ,$file_anh
                                                 );
-                                                // var_dump($file_anh);die();
+                // var_dump($error);die();
                     // xử lý thêm album ảnh sản phẩm img_array
                     if(!empty($img_array['name'])){
                         foreach($img_array['name'] as $key=>$value ){
@@ -149,9 +147,7 @@
                 if(empty($gia_san_pham)){
                     $error['gia_san_pham'] = 'Giá sản phẩm không được bỏ trống ';
                 }
-                // if(empty($gia_khuyen_mai)){
-                //     $error['gia_khuyen_mai'] = 'Giá khuyễn mãi sản phẩm không được bỏ trống ';
-                // }
+               
                 if(empty($so_luong)){
                     $error['so_luong'] = 'Số lượng không được bỏ trống ';
                 }
@@ -167,6 +163,7 @@
                 // if($hinh_anh['error']){
                 //     $error['hinh_anh'] = 'Không được bỏ trống hình ảnh ';
                 // }
+                // var_dump($trang_thai);die;
                 $_SESSION['error'] = $error ;
                 if(isset($hinh_anh) && $hinh_anh['error'] == UPLOAD_ERR_OK ){
                     // upload file ảnh mới lên 
@@ -219,21 +216,21 @@
             }
         }
     
-    // public function infoSanPham(){
+    public function infoSanPham(){
             
-    //     // lấy ra thông tin để sửa
-    //     $id = $_GET['id_san_pham'];
-    //     $sanpham = $this->modelSanPham->getDetailSanPham($id);
-    //   $listbinhluan = $this->modelSanPham->getBinhLuanFromKhachHang($id);
-    //     if($sanpham){
-    //     require_once './views/detailSanPham.php';
+        // lấy ra thông tin để sửa
+        $id = $_GET['id_san_pham'];
+        $sanpham = $this->modelSanPham->getDetailSanPham($id);
+      $listbinhluan = $this->modelSanPham->getBinhLuanFromKhachHang($id);
+        if($sanpham){
+        require_once './views/sanpham/infoSanPham.php';
         
-    //     }
-    //     else{
-    //         header('location:'.BASE_URL);
-    //         exit();
-    //     }
+        }
+        else{
+            header('location:'.BASE_URL);
+            exit();
+        }
         
-    // }
+    }
 
     }

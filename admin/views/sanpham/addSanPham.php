@@ -41,17 +41,15 @@
                   </div>
                   <div class="form-group col-6">
                     <label >Giá sản phẩm</label>
-                    <input type="text" name="gia_san_pham" class="form-control" placeholder="Nhập tên sản phẩm">
+                    <input type="number" name="gia_san_pham" class="form-control" placeholder="Nhập tên sản phẩm">
                     <?php if(isset($_SESSION['error']['gia_san_pham'])) {?>
                       <p class="text-danger"><?= $_SESSION['error']['gia_san_pham'] ?></p>
                       <?php }?>
                   </div>
                   <div class="form-group col-6">
                     <label >Giá khuyến mãi</label>
-                    <input type="text" name="gia_khuyen_mai" class="form-control" placeholder="Nhập giá khuyễn mãi">
-                    <!-- <?php if(isset($_SESSION['error']['gia_khuyen_mai'])) {?>
-                      <p class="text-danger"><?= $_SESSION['error']['gia_khuyen_mai'] ?></p>
-                      <?php }?> -->
+                    <input type="number" name="gia_khuyen_mai" class="form-control" placeholder="Nhập giá khuyễn mãi">
+               
                   </div>
                   <div class="form-group col-6">
                     <label >Hình ảnh</label>
@@ -92,7 +90,7 @@
                     <select class="form-control" name="trang_thai" id="exampleFormControlSelect1">
                         <option selected disabled >Chọn trạng thái</option>
                             <option value="1">Còn hàng</option>
-                            <option value="2">Sắp dừng bán</option>
+                            <option value="2">Dừng bán</option>
                       </select>
                     
                   </div>

@@ -56,6 +56,13 @@
                       <p class="text-danger"><?= $_SESSION['error']['so_dien_thoai'] ?></p>
                       <?php }?>
                   </div>
+                  <div class="form-group ">
+                    <label >Địa chỉ</label>
+                    <input type="text" name="dia_chi" class="form-control" placeholder="Nhập địa chỉ">
+                    <?php if(isset($_SESSION['error']['dia_chi'])) {?>
+                      <p class="text-danger"><?= $_SESSION['error']['dia_chi'] ?></p>
+                      <?php }?>
+                  </div>
                   </div>
                 <!-- /.card-body -->
 

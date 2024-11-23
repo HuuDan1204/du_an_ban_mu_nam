@@ -64,9 +64,9 @@
                       <td><?= $sanpham['trang_thai'] == 1 ? 'Còn hàng' : 'Sắp dừng bán'; ?></td>
                       <div class="btn-group" >
                       <td>
-                        <!-- <a href="<?= BASE_URL_ADMIN.'?act=chi-tiet-san-pham&id_san_pham='.$sanpham['id']?>"><button class="btn btn-primary"><i class="far fa-eye"></i></button></a> -->
+                        <a href="<?= BASE_URL_ADMIN.'?act=chi-tiet-san-pham&id_san_pham='.$sanpham['id']?>"><button class="btn btn-primary"><i class="far fa-eye"></i></button></a>
                         <a href="<?= BASE_URL_ADMIN.'?act=form-sua-san-pham&id_san_pham='.$sanpham['id']?>"><button class="btn btn-warning"><i class="fas fa-cog"></i></button></a>
-                        <a href="<?= BASE_URL_ADMIN.'?act=xoa-san-pham&id_san_pham='.$sanpham['id']?>"><button class="btn btn-danger" onclick="confirm('Bạn có muốn xóa sản phẩm không?')"><i class="fas fa-trash-alt"></i></button></a>
+                        <a onclick="return confirm('Bạn có muốn xóa danh mục này không ?')" href="<?= BASE_URL_ADMIN.'?act=xoa-san-pham&id_san_pham='.$sanpham['id']?>" ><button class="btn btn-danger" ><i class="fas fa-trash-alt"></i></button></a>
                       </td>
                       </div>
                       

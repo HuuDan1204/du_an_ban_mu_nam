@@ -22,36 +22,11 @@ class AdminSanPham
         }
     }
     
-    public function addSanPham(
-        $ten_san_pham
-        ,
-        $gia_san_pham
-        ,
-        $gia_khuyen_mai
-        ,
-        $so_luong
-        ,
-        $ngay_nhap
-        ,
-        $danh_muc_id
-        ,
-        $trang_thai
-        ,
-        $mo_ta
-        ,
-        $hinh_anh
-    ) {
+    public function addSanPham($ten_san_pham,$gia_san_pham,$gia_khuyen_mai,$so_luong,$ngay_nhap,
+                                $danh_muc_id,$trang_thai,$mo_ta,$hinh_anh) {
         try {
-            $sql = 'INSERT INTO san_phams (ten_san_pham
-                                                ,gia_san_pham
-                                                ,gia_khuyen_mai
-                                                ,so_luong
-                                                ,ngay_nhap
-                                                ,danh_muc_id
-                                                ,trang_thai
-                                                ,mo_ta
-                                                ,hinh_anh) 
-            VALUES (                             :ten_san_pham
+            $sql = 'INSERT INTO san_phams (ten_san_pham,gia_san_pham,gia_khuyen_mai,so_luong,ngay_nhap,danh_muc_id,trang_thai,mo_ta,hinh_anh) 
+            VALUES (:ten_san_pham
                                                 ,:gia_san_pham
                                                 ,:gia_khuyen_mai
                                                 ,:so_luong
@@ -72,6 +47,7 @@ class AdminSanPham
                 ':mo_ta' => $mo_ta,
                 ':hinh_anh' => $hinh_anh
             ]);
+            // print_r($gia_khuyen_mai);
             // lấy id sản phẩm vừa thêm
             return $this->conn->lastInsertId();
         } catch (Exception $e) {
