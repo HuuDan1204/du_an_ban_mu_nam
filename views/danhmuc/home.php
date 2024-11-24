@@ -16,7 +16,7 @@
                 <div class="categories__slider owl-carousel">
                         <?php foreach($listSanPham as $key=>$item ) {?>
                     <div class="col-lg-3">
-                            <img src=" <?=BASE_URL. $item['hinh_anh'];?>" alt="" height="200px" width="200px" >
+                            <img src=" <?=BASE_URL. $item['hinh_anh'];?>" alt=""  >
                             <h5><a href="#"><span class="text-danger d-flex justify-content-center " ><?= $item['ten_san_pham']; ?></span></a></h5>
                     </div>
                     <?php }?>
@@ -51,7 +51,7 @@
                 <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg">
-                            <img src="<?= $sanPham['hinh_anh'] ?>" alt="" width="300px" height="300px" >
+                            <img src="<?= $sanPham['hinh_anh'] ?>" alt="" >
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -77,12 +77,12 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="banner__pic">
-                        <img src="./uploads/1731610305anh3.jpg" height="300px" width="500px" alt="">
+                        <img src="./uploads/banner.png" height="300px" width="500px" alt="">
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="banner__pic">
-                        <img src="./uploads/1731772569anh5.jpg" height="300px" width="500px" alt="">
+                        <img src="./uploads/banner1.png" height="300px" width="500px" alt="">
                     </div>
                 </div>
             </div>
@@ -96,9 +96,9 @@
             <div class="row">
                 <div class="col-lg-4 col-md-6">
                     <div class="latest-product__text">
-                        <h4>Latest Products</h4>
+                        <h4>Sản phẩm cũ</h4>
                         <div class="latest-product__slider owl-carousel">
-                        <?php foreach($listSanPham as $sanPham ) {?>
+                        <?php foreach($listSanPhamA as $sanPham ) {?>
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
@@ -111,7 +111,7 @@
                                 </a>
                             </div>
                             <?php } ?>
-                            <?php foreach($listSanPham as $sanPham ) {?>
+                            <?php foreach($listSanPhamA as $sanPham ) {?>
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
@@ -129,9 +129,9 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="latest-product__text">
-                        <h4>Top Rated Products</h4>
+                        <h4>Sản phẩm ưa thích</h4>
                         <div class="latest-product__slider owl-carousel">
-                        <?php foreach($listSanPham as $sanPham ) {?>
+                        <?php foreach($listSanPhamB as $sanPham ) {?>
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
@@ -144,7 +144,7 @@
                                 </a>
                             </div>
                             <?php } ?>
-                            <?php foreach($listSanPham as $sanPham ) {?>
+                            <?php foreach($listSanPhamB as $sanPham ) {?>
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
@@ -162,9 +162,9 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="latest-product__text">
-                        <h4>Review Products</h4>
+                        <h4>Sản phẩm mới nhất</h4>
                         <div class="latest-product__slider owl-carousel">
-                        <?php foreach($listSanPham as $sanPham ) {?>
+                        <?php foreach($listSanPhamC as $sanPham ) {?>
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
@@ -177,7 +177,7 @@
                                 </a>
                             </div>
                             <?php } ?>
-                            <?php foreach($listSanPham as $sanPham ) {?>
+                            <?php foreach($listSanPhamC as $sanPham ) {?>
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">

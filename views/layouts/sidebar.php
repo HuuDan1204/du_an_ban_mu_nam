@@ -37,11 +37,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="hero__item set-bg" data-setbg="./uploads/1731568019anh3.jpg">
+                    <div class="hero__item set-bg" data-setbg="./uploads/banner.png">
                         <div class="hero__text"  >
-                            <span style="color:white ; ">FRUIT FRESH</span>
-                            <h2 style="color:white ; " >Vegetable <br />100% Organic</h2>
-                            <p style="color:white ; " >Free Pickup and Delivery Available</p>
+                          <br>
                             <a href="#" class="primary-btn">SHOP NOW</a>
                         </div>
                     </div>

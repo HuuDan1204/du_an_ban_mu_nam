@@ -1,4 +1,5 @@
 <?php 
+session_start();
 
 // Require file Common
 require_once './commons/env.php'; // Khai báo biến môi trường
@@ -11,6 +12,7 @@ require_once './controllers/HomeController.php';
 // Require toàn bộ file Models
 require_once './models/SanPham.php';
 require_once './models/DanhMucClient.php';
+require_once './models/TaiKhoan.php';
 require_once './admin/models/AdminSanPham.php';
 
 
@@ -28,11 +30,17 @@ $act = $_GET['act'] ?? '/';
 
 match ($act) {
     // Trang chủ
+    '/' => (new HomeController ()) ->trangChu(), 
+    'san-pham' => (new HomeController ()) ->danhSachSanPham(), 
 
-    // '/' => (new HomeController()) -> danhSachSanPham(),
-    // 'trangchu' =>(new HomeController())->trangChu(),
-    'danh-sach-san-pham' => (new HomeController ()) ->danhSachSanPham(), 
-    // 'cart' => (new AdminDanhMuc ()) ->danhSachSanPham(), 
 
+
+    // Đăng nhập
+    'login' => (new HomeController())->formLogin(),
+    'check-login-admin' => (new HomeController())->login(),
+    'logout-admin' => (new HomeController())->logout(),
+
+    
+    
 
 };
