@@ -48,7 +48,8 @@ class HomeController
                   return;
               }
               
-      
+              
+              
               $data_user = $this->modelTaiKhoan->getTaiKhoanFormEmail($email);
       
               if (!$data_user) {
@@ -64,6 +65,13 @@ class HomeController
                   $this->showError($error);
                   return;
               }
+              $_SESSION['user'] = [
+                'id' => $data_user['id'],
+                'email' => $data_user['email'],
+                'name' => $data_user['ho_ten'],
+                'chuc_vu_id' => $data_user['chuc_vu_id'],
+                
+            ];
       
               switch ($data_user['chuc_vu_id']) {
                   case 1:
@@ -81,6 +89,9 @@ class HomeController
               $error = "Phương thức không hợp lệ!";
               $this->showError($error);
           }
+          // Kiểm tra đăng nhập thành công
+
+
       }
       
       public function showError($error){
@@ -170,6 +181,12 @@ class HomeController
         require_once './views/danhmuc/SanPham.php';
       }
 
+      public function logoutUser(){
+              session_unset();
+              session_destroy();
+              header("Location: " . BASE_URL);
+              exit();
+      }
      
 
        

@@ -22,7 +22,9 @@
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $ten_san_pham = $_POST['ten_san_pham']?? '';
                 $gia_san_pham = $_POST['gia_san_pham']?? '';
-                $gia_khuyen_mai = $_POST['gia_khuyen_mai'] ?? 0 ;
+                // $gia_khuyen_mai = $_POST['gia_khuyen_mai'] ?? '' ;
+                $gia_khuyen_mai = empty($_POST['gia_khuyen_mai']) ? null : $_POST['gia_khuyen_mai'];
+
                 $so_luong = $_POST['so_luong']?? '';
                 $ngay_nhap = $_POST['ngay_nhap']?? '';
                 $danh_muc_id = $_POST['danh_muc_id'] ?? '' ;
@@ -37,29 +39,33 @@
 
 
                 $error = [];
-                if(empty($ten_san_pham)){
-                    $error['ten_san_pham'] = 'Tên sản phẩm không được bỏ trống ';
-                }
                 if(empty($gia_san_pham)){
                     $error['gia_san_pham'] = 'Giá sản phẩm không được bỏ trống ';
                 }
-            
+              
+                
                 if(empty($so_luong)){
                     $error['so_luong'] = 'Số lượng không được bỏ trống ';
                 }
+                
                 if(empty($ngay_nhap)){
                     $error['ngay_nhap'] = 'Ngày nhập không được bỏ trống ';
                 }
+                
                 if(empty($danh_muc_id)){
                     $error['danh_muc_id'] = 'Danh mục phải chọn ';
                 }
+                
                 if(empty($trang_thai)){
                     $error['trang_thai'] = 'Trạng thái phải chọn ';
                 }
+                
                 if($hinh_anh['error']!== 0) {
                     $error['hinh_anh'] = 'Không được bỏ trống hình ảnh ';
                 }
+                
                 $_SESSION['error'] = $error ;
+                // print_r($error);die;
                 if(empty($error)){
                  $san_pham_id =  $this->modelSanPham->addSanPham($ten_san_pham
                                                 ,$gia_san_pham

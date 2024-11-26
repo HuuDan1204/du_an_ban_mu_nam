@@ -39,6 +39,7 @@ match ($act) {
     'login' => (new HomeController())->formLogin(),
     'check-login' => (new HomeController())->login(),
     'logout-admin' => (new HomeController())->logout(),
+    'logout-user' => (new HomeController())->logoutUser(),
 
     // Đăng kí
     'sign-up' => (new HomeController())->formSignUp(),

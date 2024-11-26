@@ -21,6 +21,49 @@
     <link rel="stylesheet" href="./assets/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="./assets/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="./assets/css/style.css" type="text/css">
+
+    <style>
+        /* Cấu hình cơ bản cho menu */
+.user-menu {
+    position: relative;
+    display: inline-block;
+}
+
+/* Style cho dropdown menu (ẩn mặc định) */
+.user-menu__dropdown {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    min-width: 160px;
+    z-index: 1000;
+}
+
+/* Style cho các item trong dropdown */
+.user-menu__dropdown li {
+    padding: 10px;
+    list-style: none;
+}
+
+.user-menu__dropdown li a {
+    color: #333;
+    text-decoration: none;
+    display: block;
+}
+
+/* Chỉnh style cho item khi hover */
+.user-menu__dropdown li a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Hiển thị dropdown khi hover vào .user-menu */
+.user-menu:hover .user-menu__dropdown {
+    display: block;
+}
+
+    </style>
+
 </head>
 
 <body>
@@ -123,14 +166,22 @@
                                 </ul>
                             </div>
                             <div class="header__top__right__auth">
-                               <?php if(isset($_SESSION['email'])) {?>
-                                    <span>Xin chào, <?= htmlspecialchars($_SESSION['ho_ten']) ?>a</span>
-                             
-                                <p>Xin chào , <?= $_SESSION['ho_ten']; ?></p>
-                                <?php } else { ?>    
-                                <a href="<?= BASE_URL .'?act=login' ?>"><i class="fa fa-user"></i></a>
-                          <?php }?>
-                            </div>
+                                        <?php if (isset($_SESSION['user'])): ?>
+                                            <!-- Nếu người dùng đã đăng nhập, hiển thị "Xin chào" và dropdown menu -->
+                                            <div class="user-menu">
+                                                <a href="profile.php"><i class="fa fa-user"></i> Xin chào, <?= $_SESSION['user']['name'] ?></a>
+                                                <ul class="user-menu__dropdown">
+                                                    <li><a href="profile.php">Xem thông tin cá nhân</a></li>
+                                                    <li><a href="order_history.php">Lịch sử đơn hàng</a></li>
+                                                    <li><a href="<?= BASE_URL . '?act=logout-user' ?>">Đăng xuất</a></li>
+                                                </ul>
+                                            </div>
+                                        <?php else: ?>
+                                            <!-- Nếu chưa đăng nhập, hiển thị nút Login -->
+                                            <a href="<?= BASE_URL .'?act=login' ?>"><i class="fa fa-user"></i> Đăng nhập</a>
+                                        <?php endif; ?>
+                                    </div>
+
                         </div>
                     </div>
                 </div>
