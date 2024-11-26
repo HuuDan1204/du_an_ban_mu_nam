@@ -67,6 +67,20 @@ body {
     transition: .5s ease-in-out;
     transition-delay: 1s;
 }
+.input-group select {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    background-color: var(--gray);
+    border-radius: 0.5rem;
+    border: 0.125rem solid var(--white);
+    outline: none;
+    appearance: none; /* Ẩn mũi tên mặc định trên trình duyệt */
+}
+
+.input-group select:focus {
+    border: 0.125rem solid var(--primary-color);
+}
 
 .input-group {
     position: relative;
@@ -291,9 +305,9 @@ body {
         right: 0;
     }
 
-    /* .container.sign-in .col.sign-up {
+    .container.sign-in .col.sign-up {
         transform: translateY(100%);
-    } */
+    }
 
     .container.sign-in .col.sign-in,
     .container.sign-up .col.sign-up {
@@ -344,137 +358,100 @@ body {
         margin: .5rem;
         font-size: 2rem;
     }
+
+   
+
 }
 </style>
 
 <div id="container" class="container">
-		<!-- FORM SECTION -->
-		<div class="row">
-			<!-- SIGN UP -->
-			<div class="col align-items-center flex-col sign-up">
-				<div class="form-wrapper align-items-center">
-					<div class="form sign-up">
-            <h2>Đăng ký</h2>
-            
-						<div class="input-group">
-							<i class='bx bxs-user'></i>
-							<input type="text" name="username" placeholder="Username">
-						</div>
-						<div class="input-group">
-							<i class='bx bx-mail-send'></i>
-							<input type="email" placeholder="Email">
-						</div>
-            <div class="input-group">
-							<i class='bx bx-mail-send'></i>
-							<input type="text"  placeholder="Email">
-						</div>
-            <div class="input-group">
-							<i class='bx bx-mail-send'></i>
-							<input type="email" placeholder="Email">
-						</div>
-						<div class="input-group">
-							<i class='bx bxs-lock-alt'></i>
-							<input type="password" placeholder="Password">
-						</div>
-						<div class="input-group">
-							<i class='bx bxs-lock-alt'></i>
-							<input type="password" placeholder="Confirm password">
-						</div>
-						<button>
-							Sign up
-						</button>
-						<p>
-							<span>
-								Already have an account?
-							</span>
-							<b onclick="toggle()" class="pointer">
-								Sign in here
-							</b>
-						</p>
-					</div>
-				</div>
-			
-			</div>
-			<!-- END SIGN UP -->
-			<!-- SIGN IN -->
-			<div class="col align-items-center flex-col sign-in">
-				<div class="form-wrapper align-items-center">
-      
-					<form action="<?= BASE_URL.'/?act=check-login-admin';?> " method="post" class="form sign-in" >
-                                     <h2>Đăng nhập</h2>
-						<div class="input-group">
-							<i class='bx bxs-user'></i>
-              <?php if(isset($_SESSION['error'])) {?>
-                      <p class="text-danger"><?= $_SESSION['error'] ;  ?></p>
-                      <?php } else{  ?>
-                       
-                      <span >Mời nhập thông tin</span>
-                        <?php }?>
-							<input type="text" name="email" placeholder="Username" required >
-              
-						</div>
-						<div class="input-group">
-							<i class='bx bxs-lock-alt'></i>
-							<input type="password" name="password" placeholder="Password" required >
-						</div>
-						<button type="submit"  >
-							Đăng nhập
-						</button>
-						<p>
-							<b>
-                     Quên mật khẩu
-							</b>
-						</p>
-						<p>
-							<span>
-								Don't have an account?
-							</span>
-							<b onclick="toggle()" class="pointer">
-								Sign up here
-							</b>
-						</p>
-            </or>
-					</form>
-				</div>
-        
-				<div class="form-wrapper">
-		
-				</div>
-			</div>
-			<!-- END SIGN IN -->
-		</div>
-		<!-- END FORM SECTION -->
-		<!-- CONTENT SECTION -->
-		<div class="row content-row">
-			<!-- SIGN IN CONTENT -->
-			<div class="col align-items-center flex-col">
-				<div class="text sign-in">
-					<h2>
-						Welcome
-					</h2>
-	
-				</div>
-				<div class="img sign-in">
-		
-				</div>
-			</div>
-			<!-- END SIGN IN CONTENT -->
-			<!-- SIGN UP CONTENT -->
-			<div class="col align-items-center flex-col">
-				<div class="img sign-up">
-				
-				</div>
-				<div class="text sign-up">
-					<h2>
-						Join with us
-					</h2>
-	
-				</div>
-			</div>
-			<!-- END SIGN UP CONTENT -->
-		</div>
-		<!-- END CONTENT SECTION -->
-	</div>
+    <!-- FORM SECTION -->
+    <div class="row">
+        <!-- SIGN UP -->
+        <div class="col align-items-center flex-col sign-up">
+            <div class="form-wrapper align-items-center">
+                <form action="<?= BASE_URL . '?act=check-sign-up' ?>" method="post" class="form sign-up">
+                    <h2>Đăng ký</h2>
+                    <div class="input-group">
+                        <i class='bx bxs-user'></i>
+                        <input type="text" name="ho_ten" placeholder="Username" required>
+                    </div>
+                    <div class="input-group">
+                        <i class='bx bx-mail-send'></i>
+                        <input type="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <i class='bx bx-home'></i>
+                        <input type="text" name="dia_chi" placeholder="Địa chỉ" required>
+                    </div>
+                    <div class="input-group">
+                        <i class='bx bx-phone'></i>
+                        <input type="number" name="so_dien_thoai" placeholder="Số điện thoại" required>
+                    </div>
+                    <div class="input-group">
+                        <i class='bx bxs-lock-alt'></i>
+                        <input type="password" name="mat_khau" placeholder="Password" minlength="6" required>
+                    </div>
+                    <div class="input-group">
+                        <i class='bx bxs-lock-alt'></i>
+                        <input type="password" name="re_mat_khau" placeholder="Confirm password" minlength="6" required>
+                    </div>
+                    <div class="input-group">
+                        <i class='bx bx-user'></i>
+                        <select name="gioi_tinh" required>
+                            <option value="" disabled selected>Chọn giới tính</option>
+                            <option value="1">Nam</option>
+                            <option value="2">Nữ</option>
+                        </select>
+                    </div>
+                    <?php if (isset($error)): ?>
+                        <div class="error"><?= $error ?></div>
+                    <?php endif; ?>
+                    <button type="submit">Sign up</button>
+                    <p>
+                        <span>Bạn đã có tài khoản?</span>
+                        <b onclick="toggle()" class="pointer">Đăng nhập tại đây</b>
+                    </p>
+                                            <?php
+                        if (isset($_SESSION['success'])) {
+                            echo '<script>alert("' . $_SESSION['success'] . '");</script>';
+                            unset($_SESSION['success']); 
+                        }
+                        ?>
+
+                </form>
+            </div>
+        </div>
+        <!-- SIGN IN -->
+        <div class="col align-items-center flex-col sign-in">
+            <div class="form-wrapper align-items-center">
+                <form action="<?= BASE_URL . '?act=check-login' ?>" method="post" class="form sign-in">
+                    <h2>Đăng nhập</h2>
+                    <div class="input-group">
+                        <i class='bx bxs-user'></i>
+                        <input type="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <i class='bx bxs-lock-alt'></i>
+                        <input type="password" name="mat_khau" placeholder="Password" required>
+                    </div>
+                    <?php if (isset($error)): ?>
+                        <div class="error"><?= $error ?></div>
+                    <?php endif; ?>
+                    <button type="submit">Đăng nhập</button>
+                    <p>
+                        <b>Quên mật khẩu</b>
+                    </p>
+                    <p>
+                        <span>Bạn không có tài khoản?</span>
+                        <b onclick="toggle()" class="pointer">Đăng ký tại đây!</b>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
   <script>

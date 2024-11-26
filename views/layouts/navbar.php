@@ -5,7 +5,7 @@
                     <div class="hero__categories">
                         <div class="hero__categories__all">
                             <i class="fa fa-bars"></i>
-                            <span>All Danh mục </span>
+                            <span> Danh mục </span>
                         </div>
                         <ul>
                         <?php foreach($listDanhMuc as $danhmuc ) {?>

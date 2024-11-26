@@ -54,6 +54,10 @@
             </div>
             <div class="header__top__right__auth">
                 <a href="SanPham.php"><i class="fa fa-user"></i> Login</a>
+                <ul>
+                    <li><a href="#">Spanis</a></li>
+                    <li><a href="#">English</a></li>
+                </ul>
             </div>
         </div>
         <!-- <nav class="humberger__menu__nav mobile-menu">
@@ -119,7 +123,13 @@
                                 </ul>
                             </div>
                             <div class="header__top__right__auth">
-                                <a href="<?= BASE_URL .'?act=login' ?>"><i class="fa fa-user"></i> Đăng nhập</a>
+                               <?php if(isset($_SESSION['email'])) {?>
+                                    <span>Xin chào, <?= htmlspecialchars($_SESSION['ho_ten']) ?>a</span>
+                             
+                                <p>Xin chào , <?= $_SESSION['ho_ten']; ?></p>
+                                <?php } else { ?>    
+                                <a href="<?= BASE_URL .'?act=login' ?>"><i class="fa fa-user"></i></a>
+                          <?php }?>
                             </div>
                         </div>
                     </div>
@@ -136,16 +146,9 @@
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="./index.html">Trang chủ</a></li>
+                            <li ><a href="<?= BASE_URL ?>">Trang chủ</a></li>
                             <li><a href="<?= BASE_URL .'?act=san-pham' ?>">Sản phẩm</a></li>
-                            <!-- <li><a href="#">Page</a>
-                                <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                    <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
-                                </ul>
-                            </li> -->
+                            
                             <li><a href="./blog.html">Bài viết</a></li>
                             <li><a href="./contact.html">Liên hệ</a></li>
                         </ul>

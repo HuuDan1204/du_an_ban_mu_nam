@@ -5,7 +5,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="http://localhost/du_an_ban_mu_nam/admin/?act=danh-muc" class="nav-link">Home</a>
+        <a href="<?= BASE_URL ?>" class="nav-link">Home</a>
       </li>
       
     </ul>
@@ -49,7 +49,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link"  href="<?= BASE_URL_ADMIN. '?act=login-admin'?>" onclick="return confirm('Bạn có muốn đăng xuất tài khoản không?')">
+        <a class="nav-link"  href="<?= BASE_URL. '?act=login'?>" onclick="return confirm('Bạn có muốn đăng xuất tài khoản không?')">
         <i class="fas fa-sign-out-alt"  ></i>
         </a>
       </li>

@@ -75,6 +75,6 @@ match ($act) {
 
 
     // route đăng nhập
-       
+       'logout-admin' => (new HomeController())->logout(),
 
 };
