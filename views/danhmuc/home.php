@@ -17,8 +17,7 @@
                         <?php foreach($listSanPham as $key=>$item ) {?>
                     <div class="col-lg-3">
                             <img src=" <?=BASE_URL. $item['hinh_anh'];?>" alt=""  >
-                            <h5><a href="<?= BASE_URL . '?act=chi-ti
-                            et-san-pham&id_san_pham='.$item['id'] ?>"><span class="text-danger d-flex justify-content-center " ><?= $item['ten_san_pham']; ?></span></a></h5>
+                            <h5><a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham='.$item['id'] ?>"><span class="text-danger d-flex justify-content-center " ><?= $item['ten_san_pham']; ?></span></a></h5>
                     </div>
                     <?php }?>
                 </div>
