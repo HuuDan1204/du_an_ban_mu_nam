@@ -200,7 +200,7 @@
                             <li ><a href="<?= BASE_URL ?>">Trang chủ</a></li>
                             <li><a href="<?= BASE_URL .'?act=san-pham' ?>">Sản phẩm</a></li>
                             
-                            <li><a href="./blog.html">Bài viết</a></li>
+                            <li><a href="<?= BASE_URL .'?act=chi-tiet-san-pham' ?>">Bài viết</a></li>
                             <li><a href="./contact.html">Liên hệ</a></li>
                         </ul>
                     </nav>

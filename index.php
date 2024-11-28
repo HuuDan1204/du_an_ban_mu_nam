@@ -32,6 +32,7 @@ match ($act) {
     // Trang chủ
     '/' => (new HomeController ()) ->trangChu(), 
     'san-pham' => (new HomeController ()) ->danhSachSanPham(), 
+    'chi-tiet-san-pham' => (new HomeController ()) ->chiTietSanPham(), 
 
 
 

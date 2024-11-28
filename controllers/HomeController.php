@@ -177,8 +177,16 @@ class HomeController
             $listSanPhamA = $this->modelSanPham->getSanPhamA();
             $listSanPhamB = $this->modelSanPham->getSanPhamB();
             $listSanPhamC = $this->modelSanPham->getSanPhamC();
+            
 
         require_once './views/danhmuc/SanPham.php';
+      }
+
+      public function chiTietSanPham(){
+        $id_san_pham = $_GET['id_san_pham'];
+        $listSanPham = $this->modelSanPham->getDetail($id_san_pham);
+        $listAnhSanPham = $this->modelSanPham->getListHinhAnh($id_san_pham);
+        require_once './views/danhmuc/ChiTietSanPham.php';
       }
 
       public function logoutUser(){

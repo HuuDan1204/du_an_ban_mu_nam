@@ -31,38 +31,25 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6">
+                   
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
                             <img class="product__details__pic__item--large"
-                                src="./assets/img/product/details/product-details-1.jpg" alt="">
+                                src="<?= $listSanPham['hinh_anh'] ?>" alt="">
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
-                            <img data-imgbigurl="./assets/img/product/details/product-details-2.jpg"
-                                src="./assets/img/product/details/thumb-1.jpg" alt="">
-                            <img data-imgbigurl="./assets/img/product/details/product-details-3.jpg"
-                                src="./assets/img/product/details/thumb-2.jpg" alt="">
-                            <img data-imgbigurl="./assets/img/product/details/product-details-5.jpg"
-                                src="./assets/img/product/details/thumb-3.jpg" alt="">
-                            <img data-imgbigurl="./assets/img/product/details/product-details-4.jpg"
-                                src="./assets/img/product/details/thumb-4.jpg" alt="">
+                            <?php foreach($listAnhSanPham as $key=>$item) {?>
+                          <div class="<?= $item[$key] == 0 ? 'active' : '' ?>" ><img data-imgbigurl="<?= $item['link_hinh_anh'] ?>" src="<?= $item['link_hinh_anh'] ?>" alt=""></div>
+                                <?php } ?>
                         </div>
-                    </div>
+                    </div>      
                 </div>
                 <div class="col-lg-6 col-md-6">
+               
                     <div class="product__details__text">
-                        <h3>Vetgetable’s Package</h3>
-                        <div class="product__details__rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-o"></i>
-                            <span>(18 reviews)</span>
-                        </div>
-                        <div class="product__details__price">$50.00</div>
-                        <p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam sit amet quam
-                            vehicula elementum sed sit amet dui. Sed porttitor lectus nibh. Vestibulum ac diam sit amet
-                            quam vehicula elementum sed sit amet dui. Proin eget tortor risus.</p>
+                       <h3><?= $listSanPham['ten_san_pham'] ?></h3>
+                        <div class="product__details__price"><?=  number_format($listSanPham['gia_san_pham'],0,',','.')  ?>VND</div>
+                        <p><?= $listSanPham['mo_ta'] ?></p>
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
@@ -73,9 +60,9 @@
                         <a href="#" class="primary-btn">ADD TO CARD</a>
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
-                            <li><b>Availability</b> <span>In Stock</span></li>
+                            <li><b>Trạng thái</b> <span><?= $listSanPham['trang_thai'] ? 'Còn Hàng' : 'Hết hàng' ?></span></li>
                             <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
-                            <li><b>Weight</b> <span>0.5 kg</span></li>
+                            <!-- <li><b>Weight</b> <span>0.5 kg</span></li> -->
                             <li><b>Share on</b>
                                 <div class="share">
                                     <a href="#"><i class="fa fa-facebook"></i></a>
@@ -85,7 +72,9 @@
                                 </div>
                             </li>
                         </ul>
+                      
                     </div>
+                   
                 </div>
                 <div class="col-lg-12">
                     <div class="product__details__tab">
