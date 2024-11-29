@@ -195,8 +195,17 @@ class HomeController
               header("Location: " . BASE_URL);
               exit();
       }
-     
+      public function thanhToan() {
+        require_once './views/danhmuc/ThanhToan.php'; 
+    }
+      
+    public function xulithanhtoan() {
+        require_once './views/danhmuc/xulithanhtoan_momo.php'; 
+    }
 
+    public function thanhtoanatm() {
+        require_once './views/danhmuc/thanhtoan_atm.php'; 
+    }
        
 
 

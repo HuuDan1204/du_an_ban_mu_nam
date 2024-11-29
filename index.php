@@ -32,9 +32,10 @@ match ($act) {
     // Trang chủ
     '/' => (new HomeController ()) ->trangChu(), 
     'san-pham' => (new HomeController ()) ->danhSachSanPham(), 
-    'chi-tiet-san-pham' => (new HomeController ()) ->chiTietSanPham(), 
-
-
+     'chi-tiet-san-pham' => (new HomeController ()) ->chiTietSanPham(), 
+     'thanh-toan' => (new HomeController())->thanhToan(),
+      'xu-li-thanh-toan' => (new HomeController())-> xulithanhtoan(),
+      'thanh-toan-atm' => (new HomeController())->thanhtoanatm(),
 
     // Đăng nhập
     'login' => (new HomeController())->formLogin(),
