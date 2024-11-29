@@ -33,6 +33,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__table">
+                    
                         <table>
                             <thead>
                                 <tr>
@@ -47,30 +48,53 @@
                                 <?php $tong_tien = 0 ; ?>
                                 <?php foreach($gioHang as $item) {?>
                                 <tr>
+                                <td>
+                               <input type="checkbox" class="chon-san-pham" name="chon_san_pham[]" value="<?= $item['id'] ?>">
+                </td>
                                     <td class="shoping__cart__item">
                                         <img src="<?= $item['hinh_anh']  ?>" width="100px" alt="">
                                         <h5><?= $item['ten_san_pham'] ?></h5>
                                     </td>
-                                    <td class="shoping__cart__price">
-                                        <?= number_format($item['gia_san_pham'],0,',' , '.') ?>VND
+                                    <td class="shoping__cart__price" <?php if($item['gia_khuyen_mai']) {?> >
+                                        <?= number_format($item['gia_khuyen_mai'],0,',' , '.'); }
+                                        else{
+                                            number_format($item['gia_san_pham'],0,',' , '.');
+                                        }
+                                        ?>VND
                                     </td>
                                     <td class="shoping__cart__quantity">
                                         <div class="quantity">
                                             <div class="pro-qty">
-                                                <input type="text" value="1">
+                                            <a href="<?= BASE_URL . '?act=giam-san-pham&id_gio_hang=' .$item['san_pham_id'] ;  ?>"> <button <?php if($item['so_luong'] === 1 ){ echo 'disabled';  }  ?> > <span class="dec qtybtn">-</span></button>   </a>
+                                                <input type="text"   value="<?= $item['so_luong']  ?> " name="so_luong" readonly>
+                                            <a href="<?= BASE_URL . '?act=tang-san-pham&id_gio_hang=' .$item['san_pham_id'] ;  ?>"> <button> <span class="dec qtybtn">+</span> </button>  </a>
+
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="shoping__cart__total">
-                                        $110.00
+                                    <td class="shoping__cart__total" <?php if($item['gia_khuyen_mai']){ ?> >
+                                       <?=  $item['so_luong'] * number_format($item['gia_khuyen_mai'] ,0,',','.' );  }
+                                       else{
+                                        $item['so_luong'] * number_format($item['gia_sam_pham'] ,0,',','.' );
+                                       }
+                                       ?>
+                                       VND
                                     </td>
                                     <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
+                                       <a href="<?= BASE_URL . '?act=delete-san-pham&id_gio_hang='.$item['id'] ?>"> <button onclick="confirm('Ban co muon xoa san pham nay ?')" > <span class="icon_close"></span></button></a>
                                     </td>
                                 </tr>
+                                <?php if($item['gia_khuyen_mai']) {
+                                    $tong_tien += $item['so_luong'] * $item['gia_khuyen_mai'];
+                                }
+                                else{
+                                    $tong_tien += $item['so_luong'] * $item['gia_san_pham'];
+                                } ?>
                              <?php } ?>
                             </tbody>
                         </table>
+                       <a href="<?= BASE_URL . '?act=xoa-nhieu-san-pham&id_gio_hang='.$item['id'] ?>"> <button type="submit" class="primary-btn cart-btn-right">Xóa sản phẩm đã chọn</button></a>
+
                     </div>
                 </div>
             </div>
@@ -97,10 +121,10 @@
                     <div class="shoping__checkout">
                         <h5>Tổng tiền giỏ hàng</h5>
                         <ul>
-                            <li>Subtotal <span>$454.98</span></li>
-                            <li>Tổng tiền <span>$454.98</span></li>
+                            <!-- <li>Subtotal <span>$454.98</span></li> -->
+                            <li>Tổng tiền <span><?= number_format($tong_tien ,0, ',', '.' ) ?>VND</span></li>
                         </ul>
-                        <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                        <a href="<?= BASE_URL . '?act=thanh-toan' ?>" class="primary-btn">Tiến hành thanh toán</a>
                     </div>
                 </div>
             </div>

@@ -33,9 +33,12 @@ match ($act) {
     // Trang chủ
     '/' => (new HomeController ()) ->trangChu(), 
     'san-pham' => (new HomeController ()) ->danhSachSanPham(), 
-    'chi-tiet-san-pham' => (new HomeController ()) ->chiTietSanPham(), 
-
-
+     'chi-tiet-san-pham' => (new HomeController ()) ->chiTietSanPham(),
+     
+     //thanh toán
+     'thanh-toan' => (new HomeController())->thanhToan(),
+     'xu-li-thanh-toan' => (new HomeController())-> xulithanhtoan(),
+     'thanh-toan-atm' => (new HomeController())->thanhtoanatm(),
 
     // Đăng nhập
     'login' => (new HomeController())->formLogin(),
@@ -50,8 +53,10 @@ match ($act) {
     // giỏ hàng
     'gio-hang' =>(new HomeController()) ->gioHang(),
     'them-gio-hang' =>(new HomeController())->addGioHang(),
-    'xoa-san-pham-gio-hang' =>(new HomeController())->xoaSanPhamGioHang(),
-    
+    'tang-san-pham' =>(new HomeController())->tangSanPham(),
+    'giam-san-pham' =>(new HomeController())->giamSanPham(),
+    'delete-san-pham' =>(new HomeController())->xoaSanPham(),
+    'xoa-nhieu-san-pham' =>(new HomeController())->xoaNhieuSanPham(),
     
 
 };

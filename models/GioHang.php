@@ -110,6 +110,25 @@
             echo 'Lỗi: '.$e->getMessage();
         }
     }
+    public function deleteSanPham($id_gio_hang){
+        try{
+            $sql = 'DELETE FROM chi_tiet_gio_hangs WHERE id=:id ';
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':id'=>$id_gio_hang
+            ]);
+            return true ;
+        }
+        catch(PDOException $e){
+            echo 'Lỗi: '.$e->getMessage();
+        }
+    }
+    public function xoaSanPham($productId)
+{
+    $sql = "DELETE FROM gio_hangs WHERE id = :id";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute([':id' =>$productId]);
+    return $stmt->execute();
+}
 
-    
  }

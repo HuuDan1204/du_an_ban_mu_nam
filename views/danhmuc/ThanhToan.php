@@ -37,7 +37,7 @@
             </div>
             <div class="checkout__form">
                 <h4>Billing Details</h4>
-                <form action="#">
+                <form>
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
                             <div class="row">
@@ -120,40 +120,21 @@
                                 <h4>Your Order</h4>
                                 <div class="checkout__order__products">Products <span>Total</span></div>
                                 <ul>
-                                    <li>Vegetable’s Package <span>$75.99</span></li>
-                                    <li>Fresh Vegetable <span>$151.99</span></li>
-                                    <li>Organic Bananas <span>$53.99</span></li>
+                                    
                                 </ul>
-                                <div class="checkout__order__subtotal">Subtotal <span>$750.99</span></div>
-                                <div class="checkout__order__total">Total <span>$750.99</span></div>
-                                <div class="checkout__input__checkbox">
-                                    <label for="acc-or">
-                                        Create an account?
-                                        <input type="checkbox" id="acc-or">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt
-                                    ut labore et dolore magna aliqua.</p>
-                                <div class="checkout__input__checkbox">
-                                    <label for="payment">
-                                        Check Payment
-                                        <input type="checkbox" id="payment">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <div class="checkout__input__checkbox">
-                                    <label for="paypal">
-                                        Paypal
-                                        <input type="checkbox" id="paypal">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <button type="submit" class="site-btn">PLACE ORDER</button>
+                                <div class="checkout__order__subtotal">Subtotal <span></span></div>
+                                <div class="checkout__order__total">Total <span></span></div>
+
                             </div>
                         </div>
                     </div>
-                </form>
+  </form>
+  <form class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded"
+                          action="xulithanhtoan_momo.php">
+                          <li><a href="<?= BASE_URL .'?act=xu-li-thanh-toan' ?>" class="btn btn-danger">Thanh toán QR MOMO</a></li><br>
+
+                          <li><a href="<?= BASE_URL .'?act=thanh-toan-atm' ?>" class="btn btn-danger">Thanh toán ATM MOMO</a></li>
+</form>
             </div>
         </div>
     </section>

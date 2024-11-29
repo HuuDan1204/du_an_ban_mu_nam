@@ -198,8 +198,17 @@ class HomeController
               header("Location: " . BASE_URL);
               exit();
       }
-     
+      public function thanhToan() {
+        require_once './views/danhmuc/ThanhToan.php'; 
+    }
+      
+    public function xulithanhtoan() {
+        require_once './views/danhmuc/xulithanhtoan_momo.php'; 
+    }
 
+    public function thanhtoanatm() {
+        require_once './views/danhmuc/thanhtoan_atm.php'; 
+    }
        
       public function gioHang(){
         $listDanhMuc = $this->modelDanhMuc->getAllDanhMuc();
@@ -268,7 +277,45 @@ class HomeController
         }
     }
 
-    
+    public function tangSanPham(){
+        $id_gio_hang = $_GET['id_gio_hang'];
+        $this->modelGioHang->themSanPham($id_gio_hang);
+        header("location:".BASE_URL. '?act=gio-hang' );
+
+    }
+
+    public function giamSanPham(){
+        $id_gio_hang = $_GET['id_gio_hang'];
+        $this->modelGioHang->botSanPham($id_gio_hang);
+        header("location:".BASE_URL. '?act=gio-hang'  );
+    }
+
+    public function xoaSanPham(){
+        $id_gio_hang = $_GET['id_gio_hang'];
+        $this->modelGioHang->deleteSanPham($id_gio_hang);
+        header("location: ".BASE_URL. '?act=gio-hang' );
+
+
+        
+    }
+
+    public function xoaNhieuSanPham()
+{
+    // Lấy danh sách sản phẩm từ checkbox
+    $selectedProducts = $_POST['chon_san_pham'] ?? [];
+    if (!empty($selectedProducts)) {
+        foreach ($selectedProducts as $productId) {
+            $this->modelGioHang->xoaSanPham($productId);
+        }
+        $_SESSION['success'] = "Xóa sản phẩm thành công!";
+    } else {
+        $_SESSION['error'] = "Vui lòng chọn sản phẩm để xóa.";
+    }
+
+    // Chuyển hướng về trang giỏ hàng
+    header('Location: ' . BASE_URL . '?act=gio-hang');
+    exit;
+}
 
 
 
