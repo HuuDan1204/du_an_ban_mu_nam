@@ -69,6 +69,18 @@ class SanPham
             echo "Loi".$e->getMessage();
         }
     }
+    public function getTop4SanPham()
+    {
+        try{
+        $sql = 'SELECT * FROM san_phams ORDER BY luot_xem DESC LIMIT 4  ';
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+        }
+        catch(Exception $e){
+            echo "Loi".$e->getMessage();
+        }
+    }
     public function getSanPhamA(){
         try {
             $sql = 'SELECT * FROM san_phams WHERE danh_muc_id = 43 ORDER BY id DESC LIMIT 3';

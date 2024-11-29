@@ -5,10 +5,12 @@ class HomeController
     public $modelSanPham;
     public $modelDanhMuc;
     public $modelTaiKhoan;
+    public $modelGioHang ;
     public function __construct(){
        $this->modelSanPham = new SanPham();
        $this->modelDanhMuc = new AdminDanhMuc();
        $this->modelTaiKhoan = new TaiKhoan();
+       $this->modelGioHang = new GioHang();
 
     }
        
@@ -186,6 +188,7 @@ class HomeController
         $id_san_pham = $_GET['id_san_pham'];
         $listSanPham = $this->modelSanPham->getDetail($id_san_pham);
         $listAnhSanPham = $this->modelSanPham->getListHinhAnh($id_san_pham);
+        $listTop4SanPham = $this->modelSanPham->getTop4SanPham();
         require_once './views/danhmuc/ChiTietSanPham.php';
       }
 
@@ -198,7 +201,74 @@ class HomeController
      
 
        
+      public function gioHang(){
+        $listDanhMuc = $this->modelDanhMuc->getAllDanhMuc();
 
+        if (!isset($_SESSION['user'])) {
+            echo "<script>
+        alert('Vui lòng đăng nhập để sử dụng giỏ hàng!');
+        window.location.href = '?act=login';
+                 </script>";
+
+        } else {
+            $user_id = $_SESSION['user']['id'];
+            $gioHang = $this->modelGioHang->getGioHang($user_id);
+            require_once './views/danhmuc/GioHang.php';
+        }
+      }
+
+      public function addGioHang(){
+        if (!isset($_SESSION['user'])) {
+            echo "<script>
+        alert('Vui lòng đăng nhập để sử dụng giỏ hàng!');
+        window.location.href = '?act=login';
+                 </script>";
+        }
+        else{
+            $user_id = $_SESSION['user']['id'];
+            $gioHang = $this->modelGioHang->checkGioHang($user_id);
+            // var_dump($gioHang);die;
+            if($gioHang){
+                $gio_hang_id = $gioHang['id'];
+                // var_dump($gioHang);die;
+            }
+            else{
+               $this->modelGioHang->getAddGioHang($user_id);
+               $gioHang = $this->modelGioHang->checkGioHang($user_id);
+               if(!$gioHang){
+                //  echo "<script>  alert('Lỗi!')</script>" ;
+                die("Lỗi");
+               }
+               $gio_hang_id = $gioHang['id'];
+            }
+            // var_dump($gio_hang_id);die;
+            $san_pham_id = $_GET['id_san_pham'];
+            $san_pham = $this->modelGioHang->checkSanPham($san_pham_id,$gio_hang_id);
+        //    var_dump($san_pham);die;
+            if($san_pham == true){
+                $test = $this->modelGioHang->themSanPham($san_pham_id);
+            }
+            else{
+                $so_luong = 1 ;
+                $test = $this->modelGioHang->ThemChiTietGioHang($gio_hang_id,$san_pham_id,$so_luong);
+                // print_r($test);die;
+            }
+            if ($test) {
+                echo "<script> 
+                alert('Thêm sản phẩm vào giỏ hàng thành công!');
+                window.location.href = '?act=/';
+                 </script>";
+                // echo "Thành công ";
+            } else {
+                echo "<script > 
+                alert('Không thể thêm sản phẩm vào giỏ hàng!');
+                window.location.href = '?act=/';
+                 </script>";
+            }
+        }
+    }
+
+    
 
 
 

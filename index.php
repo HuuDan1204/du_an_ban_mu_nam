@@ -13,6 +13,7 @@ require_once './controllers/HomeController.php';
 require_once './models/SanPham.php';
 require_once './models/DanhMucClient.php';
 require_once './models/TaiKhoan.php';
+require_once './models/GioHang.php';
 require_once './admin/models/AdminSanPham.php';
 
 
@@ -46,6 +47,10 @@ match ($act) {
     'sign-up' => (new HomeController())->formSignUp(),
     'check-sign-up' =>(new HomeController()) ->signUp(),
 
+    // giỏ hàng
+    'gio-hang' =>(new HomeController()) ->gioHang(),
+    'them-gio-hang' =>(new HomeController())->addGioHang(),
+    'xoa-san-pham-gio-hang' =>(new HomeController())->xoaSanPhamGioHang(),
     
     
 
