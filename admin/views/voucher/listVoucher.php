@@ -58,7 +58,7 @@
                             <tr>
                             <td><?= $key+1;?></td>
                             <td><?= $item['ma_voucher']?></td>
-                            <td><?= $item['giam_gia'] * 10?>%</td>
+                            <td><?= $item['giam_gia'] * 100?>%</td>
                             <td><?= $item['giam_toi_thieu'] ?></td>
                             <td><?= $item['giam_toi_da'] ?></td>
                             <td><?= $item['day_start']?></td>

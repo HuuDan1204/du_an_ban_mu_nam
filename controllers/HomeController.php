@@ -207,9 +207,63 @@ class HomeController
         $gioHang = $this->modelGioHang->getGioHang($user_id);
         // var_dump($gioHang);die;
         $phuongThucThanhToan = $this->modelThanhToan->getAllThanhToan();
+        $tong_tien = 0;
+            $giam_gia = 0;
+            $tien_giam = 0;
+            $tong_thanh_toan = 0;
+            $ma_voucher_ap_dung = null;
+    
+            // Tính tổng tiền từ giỏ hàng
+            foreach ($gioHang as $item) {
+                $gia = $item['gia_khuyen_mai'] != 0 ? $item['gia_khuyen_mai'] : $item['gia_san_pham'];
+                $tong_tien += $gia * $item['so_luong'];
+            }
+    
+            // Kiểm tra nếu người dùng áp dụng voucher
+            if (isset($_POST['ma_voucher'])) {
+                $ma_voucher = $_POST['ma_voucher'];
+    
+                // Kiểm tra voucher trong cơ sở dữ liệu
+                $voucher = $this->modelGioHang->getVoucher($ma_voucher);
+    
+                if ($voucher) {
+                    // Kiểm tra ngày áp dụng
+                    if (strtotime($voucher['day_start']) <= time() && strtotime($voucher['day_end']) >= time()) {
+                        // Kiểm tra giá trị đơn hàng tối thiểu
+                        if ($tong_tien >= $voucher['giam_toi_thieu']) {
+                            $giam_gia = $voucher['giam_gia']; // Lấy % giảm giá
+    
+                            // Nếu giảm giá là phần trăm (0 - 1), tính lại giá trị giảm
+                            if ($giam_gia < 1) {
+                                $tien_giam = $tong_tien * $giam_gia; // Tính số tiền giảm
+                            } else {
+                                $tien_giam = $giam_gia; // Giảm giá cố định
+                            }
+    
+                            // Kiểm tra giá trị giảm tối đa
+                            if ($tien_giam > $voucher['giam_toi_da']) {
+                                $tien_giam = $voucher['giam_toi_da']; // Giới hạn giảm giá
+                            }
+    
+                            // Lưu mã voucher vào session
+                            $_SESSION['voucher'] = $ma_voucher;
+    
+                            $ma_voucher_ap_dung = $ma_voucher; // Lưu mã voucher đã áp dụng
+                        } else {
+                            echo "<script>alert('Đơn hàng không đủ điều kiện để áp dụng voucher này.');</script>";
+                        }
+                    } else {
+                        echo "<script>alert('Voucher đã hết hạn hoặc không hợp lệ.');</script>";
+                    }
+                } else {
+                    echo "<script>alert('Mã voucher không hợp lệ.');</script>";
+                }
+            }
+    
+            // Tính tổng thanh toán
+            $tong_thanh_toan = $tong_tien - $tien_giam;
         if(!empty($gioHang)){
             require_once './views/danhmuc/ThanhToan.php'; 
-      
         }
         else{
             echo "<script>
@@ -222,22 +276,16 @@ class HomeController
     public function postThanhToan()
     {
             $user_id = $_SESSION['user']['id'];
-            $tai_khoan = $this->modelTaiKhoan->getTaiKhoan($user_id);
-            $gio_hang = $this->modelGioHang->getGioHang($user_id);
-            $phuongThucThanhToan = $this->modelThanhToan->getAllThanhToan();
+            $ma_don_hang = $this->modelThanhToan->getMaDonHang();
 
-            $tong_tien = 0 ;
-            $giam_gia = 0 ;
-            $tien_giam = 0 ;
-            $tong_tien_thanh_toan = 0;
-            $ma_voucher = null ;
-
-            foreach ($gio_hang as $item ){
-                $tien = $item['gia_khuyen_mai'] != 0 ? $item['gia_san_pham'] : $item['gia_san_pham'];
-                $tong_tien += $tien * $item['so_luong'];
+            if($ma_don_hang){
+                $a = $ma_don_hang;
+                $ma_hang = $a['ten_ma'];
             }
-
-            $tong_thanh_toan = $tong_tien - $tien_giam;
+            else{
+                die("Không tìm thấy");
+            }
+            
 
             // Nếu giỏ hàng rỗng, chuyển hướng về trang giỏ hàng
             if (empty($gioHang)) {
