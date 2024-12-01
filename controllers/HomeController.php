@@ -207,8 +207,13 @@ class HomeController
         require_once './views/danhmuc/thanhtoan_atm.php'; 
     }
        
-
-
+    public function lichsudonhang() {
+        require_once './views/danhmuc/LichSuDonHang.php'; 
+    }
+    
+    public function chitietdonhang() {
+        require_once './views/danhmuc/Chi_tiet_don_hang.php'; 
+    }
 
 
 

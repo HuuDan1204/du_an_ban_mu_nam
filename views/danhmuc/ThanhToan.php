@@ -16,7 +16,7 @@
                     <div class="breadcrumb__text">
                         <h2>Checkout</h2>
                         <div class="breadcrumb__option">
-                            <a href="./index.html">Home</a>
+                            <a href="<?= BASE_URL ?>">Home</a>
                             <span>Checkout</span>
                         </div>
                     </div>

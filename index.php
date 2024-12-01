@@ -36,7 +36,8 @@ match ($act) {
      'thanh-toan' => (new HomeController())->thanhToan(),
       'xu-li-thanh-toan' => (new HomeController())-> xulithanhtoan(),
       'thanh-toan-atm' => (new HomeController())->thanhtoanatm(),
-
+      'lich-su-don-hang' => (new HomeController())->lichsudonhang(),
+      'chi-tiet-don-hang' => (new HomeController())-> chitietdonhang(),
     // Đăng nhập
     'login' => (new HomeController())->formLogin(),
     'check-login' => (new HomeController())->login(),

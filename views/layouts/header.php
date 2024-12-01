@@ -172,7 +172,7 @@
                                                 <a href="profile.php"><i class="fa fa-user"></i> Xin chào, <?= $_SESSION['user']['name'] ?></a>
                                                 <ul class="user-menu__dropdown">
                                                     <li><a href="profile.php">Xem thông tin cá nhân</a></li>
-                                                    <li><a href="order_history.php">Lịch sử đơn hàng</a></li>
+                                                    <li><a href="<?= BASE_URL .'?act=lich-su-don-hang' ?>">Lịch sử đơn hàng</a></li>
                                                     <li><a href="<?= BASE_URL . '?act=logout-user' ?>">Đăng xuất</a></li>
                                                 </ul>
                                             </div>
