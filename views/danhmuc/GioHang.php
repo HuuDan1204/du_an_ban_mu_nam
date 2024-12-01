@@ -81,7 +81,7 @@
                                        VND
                                     </td>
                                     <td class="shoping__cart__item__close">
-                                       <a href="<?= BASE_URL . '?act=delete-san-pham&id_gio_hang='.$item['id'] ?>"> <button onclick="confirm('Ban co muon xoa san pham nay ?')" > <span class="icon_close"></span></button></a>
+                                       <a href="<?= BASE_URL . '?act=delete-san-pham&id_gio_hang='.$item['id'] ?>"> <button onclick="return confirm('Ban co muon xoa san pham nay ?')" > <span class="icon_close"></span></button></a>
                                     </td>
                                 </tr>
                                 <?php if($item['gia_khuyen_mai']) {
@@ -110,8 +110,8 @@
                     <div class="shoping__continue">
                         <div class="shoping__discount">
                             <h5>Mã giảm giá</h5>
-                            <form action="/">
-                                <input type="text" placeholder="Nhập mã giảm giá của bạn">
+                            <form action="" method="post" >
+                                <input type="text" placeholder="Nhập mã giảm giá của bạn" name="ma_voucher" >
                                 <button type="submit" class="site-btn">Áp dụng mã</button>
                             </form>
                         </div>
@@ -121,8 +121,16 @@
                     <div class="shoping__checkout">
                         <h5>Tổng tiền giỏ hàng</h5>
                         <ul>
-                            <!-- <li>Subtotal <span>$454.98</span></li> -->
-                            <li>Tổng tiền <span><?= number_format($tong_tien ,0, ',', '.' ) ?>VND</span></li>
+                            <?php if(isset($ma_voucher_ap_dung) && $ma_voucher_ap_dung) { ?>
+                            <li>Giảm được bằng voucher <span><?= number_format($tien_giam, 0, ',', '.') ?></span></li>
+                            <li>Mã áp dụng  <span><?= htmlspecialchars($ma_voucher_ap_dung) ?></span></li>
+                            <?php  } 
+                            else{
+                            ?>
+                            <li>Giảm được bằng voucher <span>0</span></li>
+                            <li>Mã áp dụng <span>Không có</span></li>
+                            <?php } ?>
+                            <li>Tổng tiền <span><?= number_format($tong_thanh_toan, 0, ',', '.') ?>VND</span></li>
                         </ul>
                         <a href="<?= BASE_URL . '?act=thanh-toan' ?>" class="primary-btn">Tiến hành thanh toán</a>
                     </div>

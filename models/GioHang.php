@@ -131,4 +131,19 @@
     return $stmt->execute();
 }
 
+public function getVoucher($ma_voucher)
+{
+    try {
+        $sql = 'SELECT * FROM vouchers WHERE ma_voucher = :ma_voucher AND so_luong !=0 AND trang_thai =1 ';
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':ma_voucher' => $ma_voucher]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo 'Lỗi: ' . $e->getMessage();
+        return false;
+    }
+}
+
+
+
  }
