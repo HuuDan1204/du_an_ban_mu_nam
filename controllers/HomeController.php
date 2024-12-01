@@ -7,12 +7,14 @@ class HomeController
     public $modelTaiKhoan;
     public $modelGioHang ;
     public $modelThanhToan ;
+    public $modelDonHang ;
     public function __construct(){
        $this->modelSanPham = new SanPham();
        $this->modelDanhMuc = new AdminDanhMuc();
        $this->modelTaiKhoan = new TaiKhoan();
        $this->modelGioHang = new GioHang();
        $this->modelThanhToan = new ThanhToan();
+       $this->modelDonHang = new DonHang();
 
     }
        
@@ -200,114 +202,7 @@ class HomeController
               header("Location: " . BASE_URL);
               exit();
       }
-      public function thanhToan() {
-        $listDanhMuc = $this->modelDanhMuc->getAllDanhMuc();
-        $user_id = $_SESSION['user']['id'];
-        $taiKhoan = $this->modelTaiKhoan->getTaiKhoan($user_id);
-        $gioHang = $this->modelGioHang->getGioHang($user_id);
-        // var_dump($gioHang);die;
-        $phuongThucThanhToan = $this->modelThanhToan->getAllThanhToan();
-        $tong_tien = 0;
-            $giam_gia = 0;
-            $tien_giam = 0;
-            $tong_thanh_toan = 0;
-            $ma_voucher_ap_dung = null;
-    
-            // Tính tổng tiền từ giỏ hàng
-            foreach ($gioHang as $item) {
-                $gia = $item['gia_khuyen_mai'] != 0 ? $item['gia_khuyen_mai'] : $item['gia_san_pham'];
-                $tong_tien += $gia * $item['so_luong'];
-            }
-    
-            // Kiểm tra nếu người dùng áp dụng voucher
-            if (isset($_POST['ma_voucher'])) {
-                $ma_voucher = $_POST['ma_voucher'];
-    
-                // Kiểm tra voucher trong cơ sở dữ liệu
-                $voucher = $this->modelGioHang->getVoucher($ma_voucher);
-    
-                if ($voucher) {
-                    // Kiểm tra ngày áp dụng
-                    if (strtotime($voucher['day_start']) <= time() && strtotime($voucher['day_end']) >= time()) {
-                        // Kiểm tra giá trị đơn hàng tối thiểu
-                        if ($tong_tien >= $voucher['giam_toi_thieu']) {
-                            $giam_gia = $voucher['giam_gia']; // Lấy % giảm giá
-    
-                            // Nếu giảm giá là phần trăm (0 - 1), tính lại giá trị giảm
-                            if ($giam_gia < 1) {
-                                $tien_giam = $tong_tien * $giam_gia; // Tính số tiền giảm
-                            } else {
-                                $tien_giam = $giam_gia; // Giảm giá cố định
-                            }
-    
-                            // Kiểm tra giá trị giảm tối đa
-                            if ($tien_giam > $voucher['giam_toi_da']) {
-                                $tien_giam = $voucher['giam_toi_da']; // Giới hạn giảm giá
-                            }
-    
-                            // Lưu mã voucher vào session
-                            $_SESSION['voucher'] = $ma_voucher;
-    
-                            $ma_voucher_ap_dung = $ma_voucher; // Lưu mã voucher đã áp dụng
-                        } else {
-                            echo "<script>alert('Đơn hàng không đủ điều kiện để áp dụng voucher này.');</script>";
-                        }
-                    } else {
-                        echo "<script>alert('Voucher đã hết hạn hoặc không hợp lệ.');</script>";
-                    }
-                } else {
-                    echo "<script>alert('Mã voucher không hợp lệ.');</script>";
-                }
-            }
-    
-            // Tính tổng thanh toán
-            $tong_thanh_toan = $tong_tien - $tien_giam;
-        if(!empty($gioHang)){
-            require_once './views/danhmuc/ThanhToan.php'; 
-        }
-        else{
-            echo "<script>
-            alert('Giỏ hàng trống vui lòng thêm sản phẩm để tiếp tục chức năng!');
-            window.location.href = '?act=gio-hang';
-                     </script>";
-        }
-    }
-    
-    public function postThanhToan()
-    {
-            $user_id = $_SESSION['user']['id'];
-            $ma_don_hang = $this->modelThanhToan->getMaDonHang();
-
-            if($ma_don_hang){
-                $a = $ma_don_hang;
-                $ma_hang = $a['ten_ma'];
-            }
-            else{
-                die("Không tìm thấy");
-            }
-            
-
-            // Nếu giỏ hàng rỗng, chuyển hướng về trang giỏ hàng
-            if (empty($gioHang)) {
-                echo "<script> 
-            alert('Vui lòng thêm sản phẩm vào giỏ hàng!');
-            window.location.href = '?act=gio-hang';
-            </script>";
-            } else {
-                // Gửi dữ liệu đến view
-                require_once './views/TrangThanhToan.php';
-            }
-
-    }
-
-    public function xulithanhtoan() {
-        require_once './views/danhmuc/xulithanhtoan_momo.php'; 
-    }
-
-    public function thanhtoanatm() {
-        require_once './views/danhmuc/thanhtoan_atm.php'; 
-    }
-       
+      
     public function gioHang(){
         $listDanhMuc = $this->modelDanhMuc->getAllDanhMuc();
     
@@ -471,8 +366,206 @@ class HomeController
     header('Location: ' . BASE_URL . '?act=gio-hang');
     exit;
 }
+public function thanhToan() {
+    $listDanhMuc = $this->modelDanhMuc->getAllDanhMuc();
+    $user_id = $_SESSION['user']['id'];
+    $taiKhoan = $this->modelTaiKhoan->getTaiKhoan($user_id);
+    $gioHang = $this->modelGioHang->getGioHang($user_id);
+    // var_dump($gioHang);die;
+    $phuongThucThanhToan = $this->modelThanhToan->getAllThanhToan();
+    $tong_tien = 0;
+        $giam_gia = 0;
+        $tien_giam = 0;
+        $tong_thanh_toan = 0;
+        $ma_voucher_ap_dung = null;
+
+        // Tính tổng tiền từ giỏ hàng
+        foreach ($gioHang as $item) {
+            $gia = $item['gia_khuyen_mai'] != 0 ? $item['gia_khuyen_mai'] : $item['gia_san_pham'];
+            $tong_tien += $gia * $item['so_luong'];
+        }
+
+        if (isset($_POST['ma_voucher'])) {
+            $ma_voucher = $_POST['ma_voucher'];
+
+            $voucher = $this->modelGioHang->getVoucher($ma_voucher);
+
+            if ($voucher) {
+                if (strtotime($voucher['day_start']) <= time() && strtotime($voucher['day_end']) >= time()) {
+                    if ($tong_tien >= $voucher['giam_toi_thieu']) {
+                        $giam_gia = $voucher['giam_gia']; 
+                        if ($giam_gia < 1) {
+                            $tien_giam = $tong_tien * $giam_gia; 
+                        } else {
+                            $tien_giam = $giam_gia; 
+                        }
+
+                        if ($tien_giam > $voucher['giam_toi_da']) {
+                            $tien_giam = $voucher['giam_toi_da']; 
+                        }
+
+                        $_SESSION['voucher'] = $ma_voucher;
+
+                        $ma_voucher_ap_dung = $ma_voucher; 
+                    } else {
+                        echo "<script>alert('Đơn hàng không đủ điều kiện để áp dụng voucher này.');</script>";
+                    }
+                } else {
+                    echo "<script>alert('Voucher đã hết hạn hoặc không hợp lệ.');</script>";
+                }
+            } else {
+                echo "<script>alert('Mã voucher không hợp lệ.');</script>";
+            }
+        }
+
+        // Tính tổng thanh toán
+        $tong_thanh_toan = $tong_tien - $tien_giam;
+    if(!empty($gioHang)){
+        require_once './views/danhmuc/ThanhToan.php'; 
+    }
+    else{
+        echo "<script>
+        alert('Giỏ hàng trống vui lòng thêm sản phẩm để tiếp tục chức năng!');
+        window.location.href = '?act=gio-hang';
+                 </script>";
+    }
+}
+
+public function postThanhToan()
+{
+        $user_id = $_SESSION['user']['id'];
+        $ma_don_hang = $this->modelThanhToan->getMaDonHang();
+
+        if ($ma_don_hang) {
+            $row = $ma_don_hang;
+            $prefix = $row['ten_ma']; 
+        } else {
+            die("Không tìm thấy tiền tố mã đơn hàng!");
+        }
+
+        $last_ma_don_hang = $this->modelThanhToan->getLastMaDonHang($prefix);
+
+        if ($last_ma_don_hang) {
+            $row = $last_ma_don_hang;
+            $lastOrderCode = $row['ma_don_hang'];
+            $lastNumber = (int) substr($lastOrderCode, strlen($prefix));
+        } else {
+            $lastNumber = 0; // Nếu chưa có dữ liệu, bắt đầu từ 0
+        }
+
+        $newNumber = $lastNumber + 1;
+        $newOrderCode = $prefix . str_pad($newNumber, 5, '0', STR_PAD_LEFT);
 
 
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $gioHang = $this->modelGioHang->getGioHang($user_id);
+
+            $ten_nguoi_nhan = $_POST['ten_nguoi_nhan'];
+            // var_dump($ten_nguoi_nhan);die;
+
+            $email_nguoi_nhan = $_POST['email_nguoi_nhan'];
+            $sdt_nguoi_nhan = $_POST['sdt_nguoi_nhan'];
+            $dia_chi_nguoi_nhan = $_POST['dia_chi_nguoi_nhan'];
+            $ghi_chu = $_POST['ghi_chu'] ?? '';
+            $ngay_dat = date('Y-m-d');
+            $tong_tien = $_POST['tong_tien'];
+            $phuong_thuc_thanh_toan = $_POST['ten_phuong_thuc'];
+            $trang_thai_id = 1;
+            // Kiểm tra voucher
+            $voucher_id = null;
+            $tien_giam = 0;
+            if (isset($_SESSION['voucher'])) {
+                $voucher = $this->modelGioHang->getVoucher($_SESSION['voucher']);
+                if ($voucher) {
+                    $gia_toi_thieu_de_giam = $voucher['giam_toi_thieu'];
+                    if ($tong_tien >= $gia_toi_thieu_de_giam) {
+                        $giam_gia = $voucher['giam_gia'];
+                        $tien_giam = $tong_tien * $giam_gia;
+                        if ($tien_giam > $voucher['giam_toi_da']) {
+                            $tien_giam = $voucher['giam_toi_da'];
+                        }
+                        $voucher_id = $voucher['id'];
+                        $tong_tien -= $tien_giam;
+                        // include './views/danhmuc/ThanhToan.php'; // Đảm bảo $tien_giam khả dụng trong file này
+
+                    }
+                }
+            }
+
+            // Tạo đơn hàng
+            $don_hang_id = $this->modelThanhToan->InsertDonHang(
+                $newOrderCode,
+                $user_id,
+                $ten_nguoi_nhan,
+                $email_nguoi_nhan,
+                $sdt_nguoi_nhan,
+                $dia_chi_nguoi_nhan,
+                $ghi_chu,
+                $ngay_dat,
+                $tong_tien,
+                $phuong_thuc_thanh_toan,
+                $trang_thai_id,
+                $voucher_id
+            );
+
+            if (!empty($gioHang)) {
+                foreach ($gioHang as $item) {
+                    $san_pham_id = $item['san_pham_id'];
+                    $don_gia = $item['gia_khuyen_mai'] ?: $item['gia_san_pham'];
+                    $so_luong = $item['so_luong'];
+                    $thanh_tien = $don_gia * $so_luong;
+
+                    $this->modelThanhToan->InsertChiTietDonHang($don_hang_id, $san_pham_id, $don_gia, $so_luong, $thanh_tien);
+                    $this->modelThanhToan->UpdateSanPhamSoLuong($san_pham_id, $so_luong);
+                }
+
+                if ($voucher_id) {
+                    $this->modelThanhToan->UpdateVoucherSoLuong($voucher_id);
+                    unset($_SESSION['voucher']);
+                }
+
+                $this->modelGioHang->deleteGioHang($user_id);
+                foreach ($gioHang as $item) {
+                    $this->modelGioHang->deleteChiTietGioHang($item['gio_hang_id']);
+
+                    echo "<script> 
+                alert('Đặt hàng thành công! Chúng tôi sẽ liên hệ với bạn.');
+                window.location.href = '?act=/';
+                </script>"; 
+
+                }
+          
+               
+
+            //    echo "Thành công";
+    }
+}
+
+    
+
+}
+
+public function xulithanhtoan() {
+    require_once './views/danhmuc/xulithanhtoan_momo.php'; 
+}
+
+public function thanhtoanatm() {
+    require_once './views/danhmuc/thanhtoan_atm.php'; 
+}
+   
+public function lichsudonhang()
+    {
+        $tai_khoan_id = $_SESSION['user']['id'];
+        $donHangs = $this->modelDonHang->getAllDonHang($tai_khoan_id);
+        require_once './views/danhmuc/lichSuDonHang.php';
+    }
+
+public function chitietdonhang() {
+    // $order_id = $_GET['id'] ?? null;
+    $id = $_SESSION['user']['id'];
+    $donHangs = $this->modelDonHang->getDetailDonHang($id);
+    require_once './views/danhmuc/Chi_tiet_don_hang.php'; 
+}
 
 
 

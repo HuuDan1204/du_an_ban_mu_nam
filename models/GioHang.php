@@ -143,7 +143,28 @@ public function getVoucher($ma_voucher)
         return false;
     }
 }
-
+public function deleteGioHang($id_tai_khoan)
+{
+    try {
+        $sql = 'DELETE FROM gio_hangs WHERE tai_khoan_id=:tai_khoan_id';
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':tai_khoan_id' => $id_tai_khoan]);
+        return true;
+    } catch (PDOException $e) {
+        echo 'Lỗi: ' . $e->getMessage();
+    }
+}
+public function deleteChiTietGioHang($id)
+{
+    try {
+        $sql = 'DELETE FROM chi_tiet_gio_hangs WHERE gio_hang_id=:id';
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        return true;
+    } catch (PDOException $e) {
+        echo 'Lỗi: ' . $e->getMessage();
+    }
+}
 
 
  }

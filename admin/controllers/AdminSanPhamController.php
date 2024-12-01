@@ -137,7 +137,8 @@
                 $old_file = $san_pham_old['hinh_anh']; // lấy ảnh cũ để pvu sửa ảnh
                 $ten_san_pham = $_POST['ten_san_pham']?? null ;
                 $gia_san_pham = $_POST['gia_san_pham']?? null;
-                $gia_khuyen_mai = $_POST['gia_khuyen_mai']?? 0;
+                $gia_khuyen_mai = empty($_POST['gia_khuyen_mai']) ? null : $_POST['gia_khuyen_mai'];
+
                 $so_luong = $_POST['so_luong']?? null;
                 $ngay_nhap = $_POST['ngay_nhap']?? null;
                 $danh_muc_id = $_POST['danh_muc_id'] ?? null ;

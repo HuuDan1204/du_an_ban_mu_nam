@@ -37,6 +37,7 @@
                         <table>
                             <thead>
                                 <tr>
+                                    <th></th>
                                     <th class="shoping__product">Sản phẩm</th>
                                     <th>Giá</th>
                                     <th>Số lượng</th>
@@ -55,13 +56,17 @@
                                         <img src="<?= $item['hinh_anh']  ?>" width="100px" alt="">
                                         <h5><?= $item['ten_san_pham'] ?></h5>
                                     </td>
-                                    <td class="shoping__cart__price" <?php if($item['gia_khuyen_mai']) {?> >
-                                        <?= number_format($item['gia_khuyen_mai'],0,',' , '.'); }
-                                        else{
-                                            number_format($item['gia_san_pham'],0,',' , '.');
-                                        }
-                                        ?>VND
-                                    </td>
+                                    <td class="shoping__cart__price">
+                                                    <?php 
+                                                    if ($item['gia_khuyen_mai'] != 0) {
+                                                        echo number_format($item['gia_khuyen_mai'], 0, ',', '.');
+                                                    } else {
+                                                        echo number_format($item['gia_san_pham'], 0, ',', '.');
+                                                    }
+                                                    ?>
+                                                    
+                                                </td>
+
                                     <td class="shoping__cart__quantity">
                                         <div class="quantity">
                                             <div class="pro-qty">
@@ -72,24 +77,29 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="shoping__cart__total" <?php if($item['gia_khuyen_mai']){ ?> >
-                                       <?=  $item['so_luong'] * number_format($item['gia_khuyen_mai'] ,0,',','.' );  }
-                                       else{
-                                        $item['so_luong'] * number_format($item['gia_sam_pham'] ,0,',','.' );
-                                       }
-                                       ?>
-                                       VND
-                                    </td>
+                                    <td class="shoping__cart__total">
+                                                        <?php 
+                                                        if ($item['gia_khuyen_mai'] != 0) {
+                                                            echo number_format($item['so_luong'] * $item['gia_khuyen_mai'], 0, ',', '.');
+                                                        } else {
+                                                            echo number_format($item['so_luong'] * $item['gia_san_pham'], 0, ',', '.');
+                                                        }
+                                                        ?>
+                                                        VND
+                                                    </td>
+
                                     <td class="shoping__cart__item__close">
                                        <a href="<?= BASE_URL . '?act=delete-san-pham&id_gio_hang='.$item['id'] ?>"> <button onclick="return confirm('Ban co muon xoa san pham nay ?')" > <span class="icon_close"></span></button></a>
                                     </td>
                                 </tr>
-                                <?php if($item['gia_khuyen_mai']) {
+                                                                <?php 
+                                if ($item['gia_khuyen_mai'] != 0) {
                                     $tong_tien += $item['so_luong'] * $item['gia_khuyen_mai'];
-                                }
-                                else{
+                                } else {
                                     $tong_tien += $item['so_luong'] * $item['gia_san_pham'];
-                                } ?>
+                                }
+                                ?>
+
                              <?php } ?>
                             </tbody>
                         </table>
@@ -132,7 +142,7 @@
                             <?php } ?>
                             <li>Tổng tiền <span><?= number_format($tong_thanh_toan, 0, ',', '.') ?>VND</span></li>
                         </ul>
-                        <a href="<?= BASE_URL . '?act=thanh-toan' ?>" class="primary-btn">Tiến hành thanh toán</a>
+                        <a href="<?= BASE_URL . '?act=thanh-toan' ?>" class="primary-btn">Đặt hàng</a>
                     </div>
                 </div>
             </div>

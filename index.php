@@ -15,6 +15,7 @@ require_once './models/DanhMucClient.php';
 require_once './models/TaiKhoan.php';
 require_once './models/GioHang.php';
 require_once './models/ThanhToan.php';
+require_once './models/DonHang.php';
 require_once './admin/models/AdminSanPham.php';
 
 
@@ -38,8 +39,13 @@ match ($act) {
      
      //thanh toán
      'thanh-toan' => (new HomeController())->thanhToan(),
-     'xu-li-thanh-toan' => (new HomeController())-> xulithanhtoan(),
-     'thanh-toan-atm' => (new HomeController())->thanhtoanatm(),
+     'post-thanh-toan' => (new HomeController())->postThanhToan(),
+      'xu-li-thanh-toan' => (new HomeController())-> xulithanhtoan(),
+      'thanh-toan-atm' => (new HomeController())->thanhtoanatm(),
+
+    // đơn hàng
+      'lich-su-don-hang' => (new HomeController())->lichsudonhang(),
+      'chi-tiet-don-hang' => (new HomeController())-> chitietdonhang(),
 
     // Đăng nhập
     'login' => (new HomeController())->formLogin(),
