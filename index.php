@@ -13,6 +13,8 @@ require_once './controllers/HomeController.php';
 require_once './models/SanPham.php';
 require_once './models/DanhMucClient.php';
 require_once './models/TaiKhoan.php';
+require_once './models/GioHang.php';
+require_once './models/ThanhToan.php';
 require_once './admin/models/AdminSanPham.php';
 
 
@@ -32,12 +34,16 @@ match ($act) {
     // Trang chủ
     '/' => (new HomeController ()) ->trangChu(), 
     'san-pham' => (new HomeController ()) ->danhSachSanPham(), 
-     'chi-tiet-san-pham' => (new HomeController ()) ->chiTietSanPham(), 
+     'chi-tiet-san-pham' => (new HomeController ()) ->chiTietSanPham(),
+     'lich-su-don-hang'  => (new HomeController ()) ->lichsudonhang(),
+     'chi-tiet-don-hang' => (new HomeController ()) ->chitietdonhang(),
+     'tim-kiem-san-pham' => (new HomeController ()) ->timkiemsanpham(),
+     'bai-viet'  => (new HomeController ()) ->baiviet(),
+     //thanh toán
      'thanh-toan' => (new HomeController())->thanhToan(),
-      'xu-li-thanh-toan' => (new HomeController())-> xulithanhtoan(),
-      'thanh-toan-atm' => (new HomeController())->thanhtoanatm(),
-      'lich-su-don-hang' => (new HomeController())->lichsudonhang(),
-      'chi-tiet-don-hang' => (new HomeController())-> chitietdonhang(),
+     'xu-li-thanh-toan' => (new HomeController())-> xulithanhtoan(),
+     'thanh-toan-atm' => (new HomeController())->thanhtoanatm(),
+
     // Đăng nhập
     'login' => (new HomeController())->formLogin(),
     'check-login' => (new HomeController())->login(),
@@ -48,7 +54,13 @@ match ($act) {
     'sign-up' => (new HomeController())->formSignUp(),
     'check-sign-up' =>(new HomeController()) ->signUp(),
 
-    
-    
+    // giỏ hàng
+    'gio-hang' =>(new HomeController()) ->gioHang(),
+    'them-gio-hang' =>(new HomeController())->addGioHang(),
+    'tang-san-pham' =>(new HomeController())->tangSanPham(),
+    'giam-san-pham' =>(new HomeController())->giamSanPham(),
+    'delete-san-pham' =>(new HomeController())->xoaSanPham(),
+    'xoa-nhieu-san-pham' =>(new HomeController())->xoaNhieuSanPham(),
+        
 
 };

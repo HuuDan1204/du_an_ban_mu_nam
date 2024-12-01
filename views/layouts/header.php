@@ -81,7 +81,7 @@
         <div class="humberger__menu__cart">
             <ul>
                 <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                <li><a href="<?= BASE_URL . '?act=gio-hang'  ?>"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
             </ul>
             <div class="header__cart__price">item: <span>$150.00</span></div>
         </div>
@@ -172,7 +172,7 @@
                                                 <a href="profile.php"><i class="fa fa-user"></i> Xin chào, <?= $_SESSION['user']['name'] ?></a>
                                                 <ul class="user-menu__dropdown">
                                                     <li><a href="profile.php">Xem thông tin cá nhân</a></li>
-                                                    <li><a href="<?= BASE_URL .'?act=lich-su-don-hang' ?>">Lịch sử đơn hàng</a></li>
+                                                    <li><a href="<?= BASE_URL . '?act=lich-su-don-hang' ?>">Lịch sử đơn hàng</a></li>
                                                     <li><a href="<?= BASE_URL . '?act=logout-user' ?>">Đăng xuất</a></li>
                                                 </ul>
                                             </div>
@@ -200,7 +200,7 @@
                             <li ><a href="<?= BASE_URL ?>">Trang chủ</a></li>
                             <li><a href="<?= BASE_URL .'?act=san-pham' ?>">Sản phẩm</a></li>
                             
-                            <li><a href="<?= BASE_URL .'?act=chi-tiet-san-pham' ?>">Bài viết</a></li>
+                            <li><a href="<?= BASE_URL .'?act=bai-viet' ?>">Bài viết</a></li>
                            
                             <li><a href="<?= BASE_URL .'?act=thanh-toan' ?>">Thanh toán</a></li>
                         </ul>
@@ -210,7 +210,7 @@
                     <div class="header__cart">
                         <ul>
                             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="<?= BASE_URL . '?act=gio-hang'  ?>"><i class="fa fa-shopping-bag"></i> <span></span></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>hhh</span></div>
                     </div>

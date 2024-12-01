@@ -9,6 +9,7 @@ require_once './controllers/AdminDanhMucController.php';
 require_once './controllers/AdminSanPhamController.php';
 require_once './controllers/AdminDonHangController.php';
 require_once './controllers/AdminTaiKhoanController.php';
+require_once './controllers/AdminVoucherController.php';
 
 
 
@@ -18,6 +19,7 @@ require_once './models/AdminSanPham.php';
 require_once './models/AdminDonHang.php';
 require_once './models/AdminDanhMuc.php';
 require_once './models/AdminTaiKhoan.php';
+require_once './models/AdminVoucher.php';
 
 
 // Route
@@ -76,5 +78,13 @@ match ($act) {
 
     // route đăng nhập
        'logout-admin' => (new HomeController())->logout(),
+
+    // vouchers
+        'voucher' => (new AdminVoucherController())->danhSachVoucher(),
+        'edit' => (new AdminVoucherController())->editVoucher(),
+        'form-sua-voucher' => (new AdminVoucherController())->formSuaVoucher(),
+        'update_voucher' => (new AdminVoucherController())->updateVoucher(),
+        'insert' => (new AdminVoucherController())->insertVoucher(),
+        'form-them-voucher' => (new AdminVoucherController())->formThemVoucher(),
 
 };

@@ -17,7 +17,7 @@
                         <?php foreach($listSanPham as $key=>$item ) {?>
                     <div class="col-lg-3">
                             <img src=" <?=BASE_URL. $item['hinh_anh'];?>" alt=""  >
-                            <h5><a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham='.$item['id'] ?>"><span class="text-danger d-flex justify-content-center " ><?= $item['ten_san_pham']; ?></span></a></h5>
+                            <h5><a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham='.$item['id'] ?>"><span class="text-primary d-flex justify-content-center " ><?= $item['ten_san_pham']; ?></span></a></h5>
                     </div>
                     <?php }?>
                 </div>
@@ -51,19 +51,21 @@
                 <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg">
-                            <img src="<?= $sanPham['hinh_anh'] ?>" alt="" >
+                           <a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham='.$sanPham['id'] ?>"> <img src="<?= $sanPham['hinh_anh'] ?>" alt="" ></a>
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                <li><a href="<?= BASE_URL . '?act=them-gio-hang&id_san_pham='.$sanPham['id'] ?>"><i class="fa fa-shopping-cart"></i></a></li>
+                                
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#"><?= $sanPham['ten_san_pham'] ?></a></h6>
-                            <h5><?= $sanPham['gia_san_pham'] ?>đ</h5>
+                            <h6><a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham='.$sanPham['id'] ?>"><?= $sanPham['ten_san_pham'] ?></a></h6>
+                            <h5><?= number_format($sanPham['gia_san_pham'],0,',','.') ?>VND</h5>
                         </div>
                     </div>
                 </div>
+                
                 <?php }?>
                
             </div>
@@ -100,13 +102,13 @@
                         <div class="latest-product__slider owl-carousel">
                         <?php foreach($listSanPhamA as $sanPham ) {?>
                             <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
+                                <a href="" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="<?= $sanPham['hinh_anh'] ?>" alt="">
+                                       <a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham='.$sanPham['id'] ?>"> <img src="<?= $sanPham['hinh_anh'] ?>" alt=""></a>
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6><?= $sanPham['ten_san_pham'] ?></h6>
-                                        <span><?= $sanPham['gia_san_pham'] ?>đ</span>
+                                        <span><?= number_format($sanPham['gia_san_pham'],0,',','.') ?>VND</span>
                                     </div>
                                 </a>
                             </div>
@@ -115,11 +117,12 @@
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                    <img src="<?= $sanPham['hinh_anh'] ?>" alt="">
+                                    <a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham='.$sanPham['id'] ?>"> <img src="<?= $sanPham['hinh_anh'] ?>" alt=""></a>
+
                                     </div>
                                     <div class="latest-product__item__text">
                                     <h6><?= $sanPham['ten_san_pham'] ?></h6>
-                                    <span><?= $sanPham['gia_san_pham'] ?>đ</span>
+                                    <span><?= number_format($sanPham['gia_san_pham'],0,',','.') ?>VND</span>
                                     </div>
                                 </a>
                             </div>
@@ -135,11 +138,11 @@
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="<?= $sanPham['hinh_anh'] ?>" alt="">
+                                    <a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham='.$sanPham['id'] ?>"> <img src="<?= $sanPham['hinh_anh'] ?>" alt=""></a>
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6><?= $sanPham['ten_san_pham'] ?></h6>
-                                        <span><?= $sanPham['gia_san_pham'] ?>đ</span>
+                                        <span><?= number_format($sanPham['gia_san_pham'],0,',','.') ?>VND</span>
                                     </div>
                                 </a>
                             </div>
@@ -148,11 +151,11 @@
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                    <img src="<?= $sanPham['hinh_anh'] ?>" alt="">
+                                    <a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham='.$sanPham['id'] ?>"> <img src="<?= $sanPham['hinh_anh'] ?>" alt=""></a>
                                     </div>
                                     <div class="latest-product__item__text">
                                     <h6><?= $sanPham['ten_san_pham'] ?></h6>
-                                    <span><?= $sanPham['gia_san_pham'] ?>đ</span>
+                                    <span><?= number_format($sanPham['gia_san_pham'],0,',','.') ?>VND</span>
                                     </div>
                                 </a>
                             </div>
@@ -168,11 +171,11 @@
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="<?= $sanPham['hinh_anh'] ?>" alt="">
+                                    <a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham='.$sanPham['id'] ?>"> <img src="<?= $sanPham['hinh_anh'] ?>" alt=""></a>
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6><?= $sanPham['ten_san_pham'] ?></h6>
-                                        <span><?= $sanPham['gia_san_pham'] ?>đ</span>
+                                        <span><?= number_format($sanPham['gia_san_pham'],0,',','.') ?>VND</span>
                                     </div>
                                 </a>
                             </div>
@@ -181,11 +184,11 @@
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                    <img src="<?= $sanPham['hinh_anh'] ?>" alt="">
+                                    <a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham='.$sanPham['id'] ?>"> <img src="<?= $sanPham['hinh_anh'] ?>" alt=""></a>
                                     </div>
                                     <div class="latest-product__item__text">
                                     <h6><?= $sanPham['ten_san_pham'] ?></h6>
-                                    <span><?= $sanPham['gia_san_pham'] ?>đ</span>
+                                    <span><?= number_format($sanPham['gia_san_pham'],0,',','.') ?>VND</span>
                                     </div>
                                 </a>
                             </div>
