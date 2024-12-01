@@ -14,6 +14,7 @@ require_once './models/SanPham.php';
 require_once './models/DanhMucClient.php';
 require_once './models/TaiKhoan.php';
 require_once './models/GioHang.php';
+require_once './models/ThanhToan.php';
 require_once './admin/models/AdminSanPham.php';
 
 
@@ -57,6 +58,6 @@ match ($act) {
     'giam-san-pham' =>(new HomeController())->giamSanPham(),
     'delete-san-pham' =>(new HomeController())->xoaSanPham(),
     'xoa-nhieu-san-pham' =>(new HomeController())->xoaNhieuSanPham(),
-    
+        
 
 };

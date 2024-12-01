@@ -6,11 +6,13 @@ class HomeController
     public $modelDanhMuc;
     public $modelTaiKhoan;
     public $modelGioHang ;
+    public $modelThanhToan ;
     public function __construct(){
        $this->modelSanPham = new SanPham();
        $this->modelDanhMuc = new AdminDanhMuc();
        $this->modelTaiKhoan = new TaiKhoan();
        $this->modelGioHang = new GioHang();
+       $this->modelThanhToan = new ThanhToan();
 
     }
        
@@ -199,9 +201,57 @@ class HomeController
               exit();
       }
       public function thanhToan() {
-        require_once './views/danhmuc/ThanhToan.php'; 
-    }
+        $listDanhMuc = $this->modelDanhMuc->getAllDanhMuc();
+        $user_id = $_SESSION['user']['id'];
+        $taiKhoan = $this->modelTaiKhoan->getTaiKhoan($user_id);
+        $gioHang = $this->modelGioHang->getGioHang($user_id);
+        // var_dump($gioHang);die;
+        $phuongThucThanhToan = $this->modelThanhToan->getAllThanhToan();
+        if(!empty($gioHang)){
+            require_once './views/danhmuc/ThanhToan.php'; 
       
+        }
+        else{
+            echo "<script>
+            alert('Giỏ hàng trống vui lòng thêm sản phẩm để tiếp tục chức năng!');
+            window.location.href = '?act=gio-hang';
+                     </script>";
+        }
+    }
+    
+    public function postThanhToan()
+    {
+            $user_id = $_SESSION['user']['id'];
+            $tai_khoan = $this->modelTaiKhoan->getTaiKhoan($user_id);
+            $gio_hang = $this->modelGioHang->getGioHang($user_id);
+            $phuongThucThanhToan = $this->modelThanhToan->getAllThanhToan();
+
+            $tong_tien = 0 ;
+            $giam_gia = 0 ;
+            $tien_giam = 0 ;
+            $tong_tien_thanh_toan = 0;
+            $ma_voucher = null ;
+
+            foreach ($gio_hang as $item ){
+                $tien = $item['gia_khuyen_mai'] != 0 ? $item['gia_san_pham'] : $item['gia_san_pham'];
+                $tong_tien += $tien * $item['so_luong'];
+            }
+
+            $tong_thanh_toan = $tong_tien - $tien_giam;
+
+            // Nếu giỏ hàng rỗng, chuyển hướng về trang giỏ hàng
+            if (empty($gioHang)) {
+                echo "<script> 
+            alert('Vui lòng thêm sản phẩm vào giỏ hàng!');
+            window.location.href = '?act=gio-hang';
+            </script>";
+            } else {
+                // Gửi dữ liệu đến view
+                require_once './views/TrangThanhToan.php';
+            }
+
+    }
+
     public function xulithanhtoan() {
         require_once './views/danhmuc/xulithanhtoan_momo.php'; 
     }
@@ -301,7 +351,6 @@ class HomeController
 
     public function xoaNhieuSanPham()
 {
-    // Lấy danh sách sản phẩm từ checkbox
     $selectedProducts = $_POST['chon_san_pham'] ?? [];
     if (!empty($selectedProducts)) {
         foreach ($selectedProducts as $productId) {

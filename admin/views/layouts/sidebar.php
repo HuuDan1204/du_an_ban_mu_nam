@@ -71,6 +71,15 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="<?=BASE_URL_ADMIN ."?act=voucher" ?>" class="nav-link">
+            <i class="nav-icon fas fa-file-invoice"></i>
+              <p>
+                Vouchers
+                <!-- <span class="right badge badge-danger">New</span> -->
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
                 <p>Quản lý tài khoản</p>
