@@ -35,10 +35,14 @@ match ($act) {
     '/' => (new HomeController ()) ->trangChu(), 
     'san-pham' => (new HomeController ()) ->danhSachSanPham(), 
      'chi-tiet-san-pham' => (new HomeController ()) ->chiTietSanPham(),
+
      'lich-su-don-hang'  => (new HomeController ()) ->lichsudonhang(),
      'chi-tiet-don-hang' => (new HomeController ()) ->chitietdonhang(),
      'tim-kiem-san-pham' => (new HomeController ()) ->timkiemsanpham(),
      'bai-viet'  => (new HomeController ()) ->baiviet(),
+
+     
+
      //thanh toán
      'thanh-toan' => (new HomeController())->thanhToan(),
      'xu-li-thanh-toan' => (new HomeController())-> xulithanhtoan(),

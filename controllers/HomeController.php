@@ -273,6 +273,7 @@ class HomeController
         }
     }
     
+<<<<<<< HEAD
     // public function postThanhToan()
     // {
     //         $user_id = $_SESSION['user']['id'];
@@ -299,6 +300,34 @@ class HomeController
     //         }
 
     // }
+=======
+    public function postThanhToan()
+    {
+            $user_id = $_SESSION['user']['id'];
+            $ma_don_hang = $this->modelThanhToan->getMaDonHang();
+
+            if($ma_don_hang){
+                $a = $ma_don_hang;
+                $ma_hang = $a['ten_ma'];
+            }
+            else{
+                die("Không tìm thấy");
+            }
+            
+
+            // Nếu giỏ hàng rỗng, chuyển hướng về trang giỏ hàng
+            if (empty($gioHang)) {
+                echo "<script> 
+            alert('Vui lòng thêm sản phẩm vào giỏ hàng!');
+            window.location.href = '?act=gio-hang';
+            </script>";
+            } else {
+                // Gửi dữ liệu đến view
+                require_once './views/TrangThanhToan.php';
+            }
+
+    }
+>>>>>>> d5101fd9a9013e615e31ea0ac00701fdea2d479c
 
     public function xulithanhtoan() {
         require_once './views/danhmuc/xulithanhtoan_momo.php'; 
@@ -307,6 +336,7 @@ class HomeController
     public function thanhtoanatm() {
         require_once './views/danhmuc/thanhtoan_atm.php'; 
     }
+<<<<<<< HEAD
     
     public function lichsudonhang() {
         require_once './views/danhmuc/LichSuDonHang.php'; 
@@ -321,6 +351,9 @@ class HomeController
     public function baiviet() {
         require_once './views/danhmuc/BaiViet.php'; 
     }
+=======
+       
+>>>>>>> d5101fd9a9013e615e31ea0ac00701fdea2d479c
     public function gioHang(){
         $listDanhMuc = $this->modelDanhMuc->getAllDanhMuc();
     
@@ -445,6 +478,7 @@ class HomeController
             }
         }
     }
+<<<<<<< HEAD
 
     public function tangSanPham(){
         $id_gio_hang = $_GET['id_gio_hang'];
@@ -484,7 +518,47 @@ class HomeController
     header('Location: ' . BASE_URL . '?act=gio-hang');
     exit;
 }
+=======
+>>>>>>> d5101fd9a9013e615e31ea0ac00701fdea2d479c
 
+    public function tangSanPham(){
+        $id_gio_hang = $_GET['id_gio_hang'];
+        $this->modelGioHang->themSanPham($id_gio_hang);
+        header("location:".BASE_URL. '?act=gio-hang' );
+
+    }
+
+    public function giamSanPham(){
+        $id_gio_hang = $_GET['id_gio_hang'];
+        $this->modelGioHang->botSanPham($id_gio_hang);
+        header("location:".BASE_URL. '?act=gio-hang'  );
+    }
+
+    public function xoaSanPham(){
+        $id_gio_hang = $_GET['id_gio_hang'];
+        $this->modelGioHang->deleteSanPham($id_gio_hang);
+        header("location: ".BASE_URL. '?act=gio-hang' );
+
+
+        
+    }
+
+    public function xoaNhieuSanPham()
+{
+    $selectedProducts = $_POST['chon_san_pham'] ?? [];
+    if (!empty($selectedProducts)) {
+        foreach ($selectedProducts as $productId) {
+            $this->modelGioHang->xoaSanPham($productId);
+        }
+        $_SESSION['success'] = "Xóa sản phẩm thành công!";
+    } else {
+        $_SESSION['error'] = "Vui lòng chọn sản phẩm để xóa.";
+    }
+
+    // Chuyển hướng về trang giỏ hàng
+    header('Location: ' . BASE_URL . '?act=gio-hang');
+    exit;
+}
 
 
 
