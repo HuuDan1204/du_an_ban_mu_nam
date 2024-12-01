@@ -129,7 +129,7 @@
                                     <?php foreach ($listSanPhamLast as $sanPham) {?>
                                         <a href="#" class="latest-product__item">
                                             <div class="latest-product__item__pic">
-                                              <a href="<?= BASE_URL. '?act=chi-tiet-san-pham&id_san_pham' .$sanPham['id']?>">  <img src="<?= $sanPham['hinh_anh'] ?>" alt=""></a>
+                                              <a href="<?= BASE_URL. '?act=chi-tiet-san-pham&id_san_pham=' .$sanPham['id']?>">  <img src="<?= $sanPham['hinh_anh'] ?>" alt=""></a>
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6><?= $sanPham['ten_san_pham'] ?></h6>
@@ -143,7 +143,7 @@
                                     <?php foreach ($listSanPhamLast as $sanPham) {?>
                                         <a href="#" class="latest-product__item">
                                             <div class="latest-product__item__pic">
-                                            <a href="<?= BASE_URL. '?act=chi-tiet-san-pham&id_san_pham' .$sanPham['id']?>">  <img src="<?= $sanPham['hinh_anh'] ?>" alt=""> </a>
+                                            <a href="<?= BASE_URL. '?act=chi-tiet-san-pham&id_san_pham=' .$sanPham['id']?>">  <img src="<?= $sanPham['hinh_anh'] ?>" alt=""> </a>
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6><?= $sanPham['ten_san_pham'] ?></h6>
@@ -169,12 +169,12 @@
                                 <div class="col-lg-4">
                                     <div class="product__discount__item">
                                         <div class="product__discount__item__pic set-bg">
-                                        <a href="<?= BASE_URL. '?act=chi-tiet-san-pham&id_san_pham'.$sanPhamSale['id'] ?>"><img src="<?= $sanPhamSale['hinh_anh'] ?>" alt=""></a>
+                                        <a href="<?= BASE_URL. '?act=chi-tiet-san-pham&id_san_pham='.$sanPhamSale['id'] ?>"><img src="<?= $sanPhamSale['hinh_anh'] ?>" alt=""></a>
                                             <div class="product__discount__percent">-10%</div>
                                             <ul class="product__item__pic__hover">
                                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                <li><a href="<?= BASE_URL . '?act=them-gio-hang&id_san_pham='.$sanPhamSale['id'] ?>"><i class="fa fa-shopping-cart"></i></a></li>
                                             </ul>
                                         </div>
                                         <div class="product__discount__item__text">
@@ -219,11 +219,11 @@
                             <?php foreach($listSanPhamA as $sanPham ) {?>
 
                                 <div class="product__item__pic set-bg" >
-                                <a href="<?= BASE_URL. '?act=chi-tiet-san-pham&id_san_pham' .$sanPham['id']?>"><img src="<?= $sanPham['hinh_anh'] ?>" alt=""></a>
+                                <a href="<?= BASE_URL. '?act=chi-tiet-san-pham&id_san_pham=' .$sanPham['id']?>"><img src="<?= $sanPham['hinh_anh'] ?>" alt=""></a>
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <li><a href="<?= BASE_URL . '?act=them-gio-hang&id_san_pham=' . $sanPham['id']  ?>"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
@@ -238,11 +238,11 @@
                             <?php foreach($listSanPhamB as $sanPham ) {?>
 
                                 <div class="product__item__pic set-bg" >
-                                <a href="<?= BASE_URL. '?act=chi-tiet-san-pham&id_san_pham' .$sanPham['id']?>">   <img src="<?= $sanPham['hinh_anh'] ?>" alt=""> </a>
+                                <a href="<?= BASE_URL. '?act=chi-tiet-san-pham&id_san_pham=' .$sanPham['id']?>">   <img src="<?= $sanPham['hinh_anh'] ?>" alt=""> </a>
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <li><a href="<?= BASE_URL . '?act=them-gio-hang&id_san_pham=' . $sanPham['id']  ?>"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
@@ -258,11 +258,11 @@
                             <?php foreach($listSanPhamC as $sanPham ) {?>
 
                                 <div class="product__item__pic set-bg" >
-                                <a href="<?= BASE_URL. '?act=chi-tiet-san-pham&id_san_pham'.$sanPham['id'] ?>">  <img src="<?= $sanPham['hinh_anh'] ?>" alt=""> </a>
+                                <a href="<?= BASE_URL. '?act=chi-tiet-san-pham&id_san_pham='.$sanPham['id'] ?>">  <img src="<?= $sanPham['hinh_anh'] ?>" alt=""> </a>
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <li><a href="<?= BASE_URL . '?act=them-gio-hang&id_san_pham=' . $sanPham['id']  ?>"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">

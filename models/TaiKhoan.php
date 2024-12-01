@@ -79,6 +79,19 @@ public function insertUser($chuc_vu_id, $ho_ten, $email, $dia_chi, $so_dien_thoa
         return false;
     }
 }
+public function getTaiKhoan($user_id){
+    try{
+        $sql = 'SELECT * FROM tai_khoans WHERE id=:id';
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([
+            ':id'=>$user_id
+        ]);
+        return $stmt->fetch();
+    }
+    catch (Exception $e) {
+        echo "Lỗi" . $e->getMessage();
+    }
+}
 
 
 
