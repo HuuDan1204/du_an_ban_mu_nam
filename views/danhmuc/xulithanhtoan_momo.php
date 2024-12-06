@@ -1,6 +1,12 @@
 <?php
 header('Content-type: text/html; charset=utf-8');
-
+$tong_tien = 0 ;
+$tong_thanh_toan = 0 ;
+ foreach($gioHang as $item ) {
+    $gia = ($item['gia_khuyen_mai'] != 0 ) ? $item['gia_khuyen_mai'] : $item['gia_san_pham'];
+    $tong_tien = $gia * $item['so_luong'];
+    $tong_thanh_toan = $tong_tien - $tien_giam ;
+ }
 function execPostRequest($url, $data)
 {
     $ch = curl_init($url);
@@ -26,7 +32,7 @@ $partnerCode = 'MOMOBKUN20180529';
 $accessKey = 'klm05TvNBzhg7h7j';
 $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa'; // Đảm bảo biến này được khai báo đúng
 $orderInfo = "Thanh toán qua MoMo";
-$amount = "10000"; // Số tiền thanh toán
+$amount = $tong_thanh_toan ; // Số tiền thanh toán
 $orderId = time() . ""; // ID đơn hàng
 $redirectUrl = "http://localhost/du_an_ban_mu_nam/"; // URL chuyển hướng sau khi thanh toán
 $ipnUrl = "http://localhost/du_an_ban_mu_nam/"; // URL thông báo IPN

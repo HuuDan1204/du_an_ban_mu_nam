@@ -81,6 +81,8 @@ class HomeController
       
               switch ($data_user['chuc_vu_id']) {
                   case 1:
+                    session_start();
+                    $_SESSION['admin'] = $data_user['chuc_vu_id'];
                       header("Location: " . BASE_URL_ADMIN . '?act=danh-muc');
                       exit();
                   case 2:
@@ -255,8 +257,13 @@ class HomeController
                             }
     
                             // Lưu mã voucher vào session
+                            // $_SESSION['voucher'] = [
+                            //     'code' => $ma_voucher,
+                            //     'discount_percent' => $voucher['giam_gia'],
+                            //     'min_order' => $voucher['giam_toi_thieu'],
+                            //     'max_discount' => $voucher['giam_toi_da'],
+                            // ];
                             $_SESSION['voucher'] = $ma_voucher;
-    
                             $ma_voucher_ap_dung = $ma_voucher; // Lưu mã voucher đã áp dụng
                         } else {
                             echo "<script>alert('Đơn hàng không đủ điều kiện để áp dụng voucher này.');</script>";
@@ -432,13 +439,14 @@ public function thanhToan() {
 }
 
 public function postThanhToan()
-{
-        $user_id = $_SESSION['user']['id'];
+    {
+        $listDanhMuc = $this ->modelDanhMuc->getAllDanhMuc();
+        $id_tai_khoan = $_SESSION['user']['id'];
         $ma_don_hang = $this->modelThanhToan->getMaDonHang();
 
         if ($ma_don_hang) {
             $row = $ma_don_hang;
-            $prefix = $row['ten_ma']; 
+            $prefix = $row['ten_ma']; // Ví dụ: 'DH-'
         } else {
             die("Không tìm thấy tiền tố mã đơn hàng!");
         }
@@ -456,13 +464,9 @@ public function postThanhToan()
         $newNumber = $lastNumber + 1;
         $newOrderCode = $prefix . str_pad($newNumber, 5, '0', STR_PAD_LEFT);
 
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $gioHang = $this->modelGioHang->getGioHang($user_id);
-
+            $gioHang = $this->modelGioHang->getGioHang($id_tai_khoan);
             $ten_nguoi_nhan = $_POST['ten_nguoi_nhan'];
-            // var_dump($ten_nguoi_nhan);die;
-
             $email_nguoi_nhan = $_POST['email_nguoi_nhan'];
             $sdt_nguoi_nhan = $_POST['sdt_nguoi_nhan'];
             $dia_chi_nguoi_nhan = $_POST['dia_chi_nguoi_nhan'];
@@ -471,31 +475,38 @@ public function postThanhToan()
             $tong_tien = $_POST['tong_tien'];
             $phuong_thuc_thanh_toan = $_POST['ten_phuong_thuc'];
             $trang_thai_id = 1;
+            $phi_ship = 30000;
+            $tong_tien += $phi_ship;
+
             // Kiểm tra voucher
             $voucher_id = null;
             $tien_giam = 0;
             if (isset($_SESSION['voucher'])) {
                 $voucher = $this->modelGioHang->getVoucher($_SESSION['voucher']);
+                // print_r($_SESSION['voucher']);exit;
                 if ($voucher) {
-                    $gia_toi_thieu_de_giam = $voucher['giam_toi_thieu'];
-                    if ($tong_tien >= $gia_toi_thieu_de_giam) {
-                        $giam_gia = $voucher['giam_gia'];
+                    $giam_toi_thieu = $voucher['giam_toi_thieu'];
+                    if ($tong_tien >= $giam_toi_thieu) {
+                        $giam_gia = $voucher['giam_gia']; // Tỉ lệ giảm giá (VD: 0.1 cho 10%)
                         $tien_giam = $tong_tien * $giam_gia;
                         if ($tien_giam > $voucher['giam_toi_da']) {
                             $tien_giam = $voucher['giam_toi_da'];
                         }
                         $voucher_id = $voucher['id'];
-                        $tong_tien -= $tien_giam;
-                        // include './views/danhmuc/ThanhToan.php'; // Đảm bảo $tien_giam khả dụng trong file này
-
+                        $tong_tien -= $tien_giam; // Cập nhật tổng tiền
+                        // require_once './views/danhmuc/ThanhToan.php';
                     }
+                    
                 }
             }
+            // var_dump($tien_giam);exit;
+            // var_dump($tong_tien, $giam_toi_thieu, $voucher['giam_gia']);exit;
+
 
             // Tạo đơn hàng
             $don_hang_id = $this->modelThanhToan->InsertDonHang(
                 $newOrderCode,
-                $user_id,
+                $id_tai_khoan,
                 $ten_nguoi_nhan,
                 $email_nguoi_nhan,
                 $sdt_nguoi_nhan,
@@ -524,26 +535,107 @@ public function postThanhToan()
                     unset($_SESSION['voucher']);
                 }
 
-                $this->modelGioHang->deleteGioHang($user_id);
+                $this->modelGioHang->deleteGioHang($id_tai_khoan);
                 foreach ($gioHang as $item) {
                     $this->modelGioHang->deleteChiTietGioHang($item['gio_hang_id']);
-
-                    echo "<script> 
-                alert('Đặt hàng thành công! Chúng tôi sẽ liên hệ với bạn.');
-                window.location.href = '?act=/';
-                </script>"; 
-
                 }
-          
-               
+                // var_dump($tien_giam);exit;
+                // Phương thức thanh toán qua VNPAY
+                if ($phuong_thuc_thanh_toan == 1) { // Thanh toán qua VNPAY
 
-            //    echo "Thành công";
+                    error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
+                    date_default_timezone_set('Asia/Ho_Chi_Minh');
+
+                    $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+                    $vnp_Returnurl = "http://localhost/du_an_ban_mu_nam/?act=lich-su-don-hang";
+                    $vnp_TmnCode = "PDD6JE78";//Mã website tại VNPAY 
+                    $vnp_HashSecret = "T0RPQ1Q7ZDIWOS6HY06DMS1XJYDAKHOR"; //Chuỗi bí mật
+
+                    $vnp_TxnRef = $newOrderCode; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này 
+
+                    $vnp_OrderInfo = 'Nội dung thanh toán';
+                    $vnp_OrderType = 'billpayment';
+                    $vnp_Amount = $tong_tien * 100;
+                    $vnp_Locale = 'vn';
+                    $vnp_BankCode = 'NCB';
+                    $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
+                    //Add Params of 2.0.1 Version
+                    // $vnp_ExpireDate = $_POST['txtexpire'];
+                    //Billing
+
+                    $inputData = array(
+                        "vnp_Version" => "2.1.0",
+                        "vnp_TmnCode" => $vnp_TmnCode,
+                        "vnp_Amount" => $vnp_Amount,
+                        "vnp_Command" => "pay",
+                        "vnp_CreateDate" => date('YmdHis'),
+                        "vnp_CurrCode" => "VND",
+                        "vnp_IpAddr" => $vnp_IpAddr,
+                        "vnp_Locale" => $vnp_Locale,
+                        "vnp_OrderInfo" => $vnp_OrderInfo,
+                        "vnp_OrderType" => $vnp_OrderType,
+                        "vnp_ReturnUrl" => $vnp_Returnurl,
+                        "vnp_TxnRef" => $vnp_TxnRef
+
+                    );
+
+                    if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+                        $inputData['vnp_BankCode'] = $vnp_BankCode;
+                    }
+
+
+                    //var_dump($inputData);
+                    ksort($inputData);
+                    $query = "";
+                    $i = 0;
+                    $hashdata = "";
+                    foreach ($inputData as $key => $value) {
+                        if ($i == 1) {
+                            $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+                        } else {
+                            $hashdata .= urlencode($key) . "=" . urlencode($value);
+                            $i = 1;
+                        }
+                        $query .= urlencode($key) . "=" . urlencode($value) . '&';
+                    }
+
+                    $vnp_Url = $vnp_Url . "?" . $query;
+                    if (isset($vnp_HashSecret)) {
+                        $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret);//  
+                        $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
+                    }
+                    $returnData = array(
+                        'code' => '00'
+                        ,
+                        'message' => 'success'
+                        ,
+                        'data' => $vnp_Url
+                    );
+                    if ($phuong_thuc_thanh_toan == 1) {
+                        header('Location: ' . $vnp_Url);
+                        die();
+                    } else {
+                        echo json_encode($returnData);
+                    }
+                    // vui lòng tham khảo thêm tại code demo
+                 
+                } else {
+                    echo "<script> 
+                    alert('Đặt hàng thành công! Chúng tôi sẽ liên hệ với bạn.');
+                    window.location.href = '?act=/';
+                    </script>";
+                }
+            }
+        }
     }
-}
 
-    
+    //     Ngân hàng: NCB
+// Số thẻ: 9704198526191432198
+// Tên chủ thẻ:NGUYEN VAN A
+// Ngày phát hành:07/15
+// Mật khẩu OTP:123456
 
-}
+
 
 public function xulithanhtoan() {
     require_once './views/danhmuc/xulithanhtoan_momo.php'; 
@@ -560,19 +652,101 @@ public function lichsudonhang()
         require_once './views/danhmuc/lichSuDonHang.php';
     }
 
-public function chitietdonhang() {
-    // $order_id = $_GET['id'] ?? null;
-    $id = $_SESSION['user']['id'];
-    $donHangs = $this->modelDonHang->getDetailDonHang($id);
-    require_once './views/danhmuc/Chi_tiet_don_hang.php'; 
+    public function chitietdonhang() {
+        $listDanhMuc = $this->modelDanhMuc->getAllDanhMuc();
+        $don_hang_id = $_GET['id_don_hang'] ?? null;
+    
+        if (!$don_hang_id) {
+            die('Không tìm thấy id_don_hang trong URL.');
+        }
+    
+        $id = $_SESSION['user']['id'] ?? null;
+        if (!$id) {
+            die('Người dùng chưa đăng nhập.');
+        }
+    
+        // Lấy thông tin đơn hàng
+        $donHangs = $this->modelDonHang->getDetailDonHang($don_hang_id);
+        $sanPhamDonHang = $this->modelDonHang->getListDonHang($don_hang_id);
+    
+        if (!$donHangs || !$sanPhamDonHang) {
+            die('Dữ liệu đơn hàng không hợp lệ.');
+        }
+    
+        // Lấy thông tin voucher từ session (nếu có)
+        $voucher = $_SESSION['voucher'] ?? null;
+        $giamGia = $voucher['discount_percent'] ?? 0;
+        $min_order = $voucher['min_order'] ?? 0;
+        $max_discount = $voucher['max_discount'] ?? PHP_INT_MAX;
+// var_dump($giamGia);die;
+
+
+        // Tính toán tổng tiền
+        $phiShip = 30000; // Phí ship mặc định
+        $tong_tien = 0 ;
+        $_SESSION['tong_tien'] = $tong_tien;
+        
+    //    var_dump($tong_tien);exit;
+        if ($voucher) {
+            $gia_toi_thieu_de_giam = $min_order;
+            if ($tong_tien >= $gia_toi_thieu_de_giam) {
+                
+                $tien_giam = $tong_tien * $giamGia;
+                if ($tien_giam > $max_discount) {
+                    $tien_giam = $max_discount;
+                }
+            }
+            $tong_tien -= $tien_giam;
+        }
+      
+     
+       
+        // var_dump($giamGia);die;
+        // Render view
+        require_once './views/danhmuc/Chi_tiet_don_hang.php'; 
+    }
+    
+    
+    public function huyDonHang()
+    {
+        if (isset($_POST['ma_don_hang'])) {
+            $maDonHang = $_POST['ma_don_hang'];
+            $userId = $_SESSION['user']['id']; // Lấy ID khách hàng đăng nhập
+            // var_dump($userId);exit;
+            // Lấy thông tin đơn hàng
+            $donHang = $this->modelDonHang->getDonHangByMa($maDonHang, $userId);
+            
+            // Kiểm tra quyền và trạng thái đơn hàng
+            if ($donHang && $donHang['trang_thai_id'] == 1) { // 1 = Chưa xác nhận
+                // Thực hiện hủy đơn hàng
+                $result = $this->modelDonHang->updateTrangThaiDonHang($maDonHang, 11); // 5 = Đã hủy
+                if ($result) {
+                    echo "<script> 
+                    alert('Hủy hàng thành công . Chúc bạn 1 ngày tốt lành');
+                    </script>";
+                } else {
+                    $_SESSION['error'] = "Không thể hủy đơn hàng. Vui lòng thử lại.";
+                }
+            } else {
+                $_SESSION['error'] = "Đơn hàng không thể hủy vì đã được xác nhận hoặc xử lý.";
+            }
+            // var_dump($_SESSION);exit;
+            header("Location: http://localhost/du_an_ban_mu_nam/");
+            exit();
+        }
+    }
+    
+
+
+
+
+
+public function timkiemsanpham() {
+    require_once './views/layouts/TimKiem.php'; 
 }
-
-
-
-
-
-
-
+public function baiviet() {
+    require_once './views/danhmuc/BaiViet.php'; 
+}
 
 
 

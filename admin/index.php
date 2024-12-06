@@ -1,5 +1,13 @@
 <?php 
 session_start();
+if(isset($_SESSION['admin'])){
+
+}else{
+     echo "<script>
+        alert('Không có quyền truy cập!');
+        window.location.href = 'http://localhost/du_an_ban_mu_nam/' ; 
+                 </script>";
+}
 // Require file Common
 require_once '../commons/env.php'; // Khai báo biến môi trường
 require_once '../commons/function.php'; // Hàm hỗ trợ
@@ -9,7 +17,9 @@ require_once './controllers/AdminDanhMucController.php';
 require_once './controllers/AdminSanPhamController.php';
 require_once './controllers/AdminDonHangController.php';
 require_once './controllers/AdminTaiKhoanController.php';
+require_once './controllers/AdminBinhLuanController.php';
 require_once './controllers/AdminVoucherController.php';
+require_once './controllers/AdminThongKeController.php';
 
 
 
@@ -19,7 +29,9 @@ require_once './models/AdminSanPham.php';
 require_once './models/AdminDonHang.php';
 require_once './models/AdminDanhMuc.php';
 require_once './models/AdminTaiKhoan.php';
+require_once './models/AdminBinhLuan.php';
 require_once './models/AdminVoucher.php';
+require_once './models/AdminThongKe.php';
 
 
 // Route
@@ -35,6 +47,11 @@ $act = $_GET['act'] ?? '/';
 
 
 match ($act) {
+    //Thống kê
+        '/'=>(new AdminThongKeController())->thongKe(),
+        'tong-thong-ke'=>(new AdminThongKeController())->tongThongKe(),
+
+
     // Route Danh mục
         'danh-muc' => (new AdminDanhMucController())->danhSachDanhMuc(),
         'form-add-danh-muc' => (new AdminDanhMucController())->formAddDanhMuc(),

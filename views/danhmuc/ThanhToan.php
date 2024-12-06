@@ -1,3 +1,4 @@
+
 <?php require_once './views/layouts/header.php' ?>
 
     <!-- Header Section End -->
@@ -14,10 +15,10 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>Checkout</h2>
+                        <h2>Thanh toán</h2>
                         <div class="breadcrumb__option">
-                            <a href="<?= BASE_URL ?>">Home</a>
-                            <span>Checkout</span>
+                            <a href="<?= BASE_URL ?>">Trang chủ</a>
+                            <span>Thanh toán</span>
                         </div>
                     </div>
                 </div>
@@ -50,26 +51,11 @@
                                
                             </div>
                             <div class="checkout__input">
-                                <p>Thành phố<span>*</span></p>
+                                <p>Địa chỉ<span>*</span></p>
                                 <input type="text" value="<?= $taiKhoan['dia_chi'] ?>"  name="dia_chi_nguoi_nhan" >
                             </div>
-                            <div class="checkout__input">
-                                <p>Địa chỉ<span>*</span></p>
-                                <input type="text" placeholder="xóm , thôn" class="checkout__input__add"   >
-                                <!-- <input type="text" placeholder="Tên đường , số nhà "> -->
-                            </div>
-                            <!-- <div class="checkout__input">
-                                <p>Town/City<span>*</span></p>
-                                <input type="text">
-                            </div> -->
-                            <!-- <div class="checkout__input">
-                                <p>Country/State<span>*</span></p>
-                                <input type="text">
-                            </div> -->
-                            <!-- <div class="checkout__input">
-                                <p>Postcode / ZIP<span>*</span></p>
-                                <input type="text">
-                            </div> -->
+                            
+                         
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
@@ -84,13 +70,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="checkout__input__checkbox">
-                                <label for="acc">
-                                    Ghi nhớ tài khoản
-                                    <input type="checkbox" id="acc">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
+                            
                             
                             <div class="checkout__input">
                                 <p>Ghi chú<span>*</span></p>
@@ -100,8 +80,11 @@
                         </div>
                         <div class="col-lg-4 col-md-6">
                         <div class="checkout__order">
-                                <h4>Your Order</h4>
-                                <?php $tong_tien = 0 ?>
+                                <h4>Hóa đơn của bạn</h4>
+                                <?php $tong_tien = 0 ;
+                                $phiShip = 30000;
+                                
+                                ?>
 
                                 <div class="checkout__order__products">Sản phẩm <span>Giá</span></div>
                                 <?php foreach($gioHang as $item ) {?>
@@ -115,22 +98,27 @@
                                     </span></li>
                                 </ul>
                                 <?php } ?>
-                                <?php if (isset($tien_giam)) {
-                                        echo "Giá trị giảm: " . $tien_giam;
-                                    } else {
-                                        echo "Biến `tien_giam` không tồn tại!";
-                                    } ?>
+                              
+                              
 
                                 <div class="checkout__order__subtotal">
-                                            Tiềm giảm được 
+                                            Tiền giảm được 
                                             <span>
-                                                <?= isset($tien_giam) ? number_format($tien_giam, 0, ',', '.') : '0';  ?>VND
+                                                <?= isset($tien_giam) ? number_format($tien_giam, 0, ',', '.') : '0';var_dump($tien_giam, $tong_tien);
+
+ ?>VND
                                             </span>
                                         </div>
 
+                                        <div class="checkout__order__subtotal">
+                                            Tiền vận chuyển
+                                            <span>
+                                                <?= number_format($phiShip, 0, ',', '.')   ?>VND
+                                            </span>
+                                        </div>
                                 <input type="hidden" name="tong_tien" value="<?= $tong_tien ?>">
                                 <div class="checkout__order__total"  >Thành tiền <span><?php 
-                                    $tong_thanh_toan = isset($tien_giam) ? ($tong_tien - $tien_giam) : $tong_tien;
+                                    $tong_thanh_toan = isset($tien_giam) ? ($tong_tien - $tien_giam + $phiShip ) : $tong_tien + $phiShip ;
                                     echo number_format($tong_thanh_toan, 0, ',', '.');
                                 ?> VND</span></div>
                                 
@@ -151,6 +139,7 @@
                         </div>
                     </div>
   </form>
+
                             <form class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded"
                                                     action="xulithanhtoan_momo.php">
                           <li><a href="<?= BASE_URL .'?act=xu-li-thanh-toan' ?>" class="btn btn-danger">Thanh toán QR MOMO</a></li><br>

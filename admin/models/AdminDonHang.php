@@ -44,7 +44,7 @@ class AdminDonHang{
 
     public function getListDonHang($id){
         try {
-            $sql = 'SELECT chi_tiet_don_hangs.*, san_phams.ten_san_pham
+            $sql = 'SELECT chi_tiet_don_hangs.*, san_phams.ten_san_pham , san_phams.hinh_anh,san_phams.gia_san_pham,san_phams.gia_khuyen_mai
             FROM chi_tiet_don_hangs 
             INNER JOIN san_phams ON chi_tiet_don_hangs.san_pham_id = san_phams.id
             WHERE don_hang_id = :id 
@@ -78,54 +78,29 @@ class AdminDonHang{
 
        
     
-    public function updateDonHang(                 $id
-                                                ,$ten_nguoi_nhan
-                                                ,$sdt_nguoi_nhan
-                                                ,$email_nguoi_nhan
-                                                ,$dia_chi_nguoi_nhan
-                                                ,$ghi_chu
-                                                ,$trang_thai_id
-    ) {
+    public function updateDonHang($trang_thai_id, $don_hang_id) {
         try {
-            // var_dump($id);die;
-            $sql = 'UPDATE don_hangs 
-                    SET 
-                    ten_nguoi_nhan = :ten_nguoi_nhan,
-                    sdt_nguoi_nhan = :sdt_nguoi_nhan,
-                    email_nguoi_nhan = :email_nguoi_nhan,
-                    dia_chi_nguoi_nhan = :dia_chi_nguoi_nhan,
-                    ghi_chu = :ghi_chu,
-                    trang_thai_id = :trang_thai_id
-                WHERE id = :id 
-            ';
+            $sql = 'UPDATE don_hangs SET trang_thai_id = :trang_thai_id WHERE id = :id';
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
-                ':ten_nguoi_nhan' => $ten_nguoi_nhan,
-                ':sdt_nguoi_nhan' => $sdt_nguoi_nhan,
-                ':email_nguoi_nhan' => $email_nguoi_nhan,
-                ':dia_chi_nguoi_nhan' => $dia_chi_nguoi_nhan,
-                ':ghi_chu' => $ghi_chu,
                 ':trang_thai_id' => $trang_thai_id,
-                'id' => $id
+                ':id' => $don_hang_id
             ]);
-            return true;
+    
+            $affectedRows = $stmt->rowCount();
+            if ($affectedRows > 0) {
+                return true;
+            } else {
+                echo "Không có dòng nào được cập nhật.";
+                return false;
+            }
         } catch (Exception $e) {
-            echo "Lỗi" . $e->getMessage();
+            echo "Lỗi SQL: " . $e->getMessage();
+            die();
         }
     }
-    // public function destroySanPham($id)
-    // {
-    //     try {
-    //         $sql = 'DELETE FROM san_phams WHERE id = :id';
-    //         $stmt = $this->conn->prepare($sql);
-    //         $stmt->execute([
-    //             ':id' => $id
-    //         ]);
-    //         return true;
-    //     } catch (Exception $e) {
-    //         echo "Lỗi" . $e->getMessage();
-    //     }
-    // }
+    
+  
     public function getDonHangFromDonHang($id)
     {
         try {

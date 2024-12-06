@@ -73,7 +73,7 @@
     </div>
 
     <!-- Humberger Begin -->
-    <div class="humberger__menu__overlay"></div>
+    <!-- <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
             <a href="#"><img src="./uploads/logo.png" alt=""></a>
@@ -102,7 +102,7 @@
                     <li><a href="#">English</a></li>
                 </ul>
             </div>
-        </div>
+        </div> -->
         <!-- <nav class="humberger__menu__nav mobile-menu">
             <ul>
                 <li class="active"><a href="./index.html">Trang chủ</a></li>
@@ -200,9 +200,9 @@
                             <li ><a href="<?= BASE_URL ?>">Trang chủ</a></li>
                             <li><a href="<?= BASE_URL .'?act=san-pham' ?>">Sản phẩm</a></li>
                             
-                            <li><a href="<?= BASE_URL .'?act=chi-tiet-san-pham' ?>">Bài viết</a></li>
+                            <li><a href="<?= BASE_URL .'?act=bai-viet' ?>">Bài viết</a></li>
                            
-                            <li><a href="<?= BASE_URL .'?act=thanh-toan' ?>">Thanh toán</a></li>
+                            <li><a href="<?= BASE_URL .'?act=thanh-toan' ?>">Liên hệ</a></li>
                         </ul>
                     </nav>
                 </div>

@@ -36,6 +36,9 @@ match ($act) {
     '/' => (new HomeController ()) ->trangChu(), 
     'san-pham' => (new HomeController ()) ->danhSachSanPham(), 
      'chi-tiet-san-pham' => (new HomeController ()) ->chiTietSanPham(),
+     'tim-kiem-san-pham' => (new HomeController ()) ->timkiemsanpham(),
+     'bai-viet'  => (new HomeController ()) ->baiviet(),
+ 
      
      //thanh toán
      'thanh-toan' => (new HomeController())->thanhToan(),
@@ -46,6 +49,7 @@ match ($act) {
     // đơn hàng
       'lich-su-don-hang' => (new HomeController())->lichsudonhang(),
       'chi-tiet-don-hang' => (new HomeController())-> chitietdonhang(),
+      'huy-don-dang' => (new HomeController())-> huyDonHang(),
 
     // Đăng nhập
     'login' => (new HomeController())->formLogin(),
@@ -66,4 +70,5 @@ match ($act) {
     'xoa-nhieu-san-pham' =>(new HomeController())->xoaNhieuSanPham(),
         
 
+   
 };

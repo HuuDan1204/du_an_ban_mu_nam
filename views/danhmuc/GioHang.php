@@ -42,7 +42,7 @@
                                     <th>Giá</th>
                                     <th>Số lượng</th>
                                     <th>Tổng tiền</th>
-                                    <th></th>
+                                   <th></th>
                                 </tr>
                             </thead>
                             <tbody>

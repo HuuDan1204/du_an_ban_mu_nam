@@ -124,33 +124,30 @@
                             <div class="latest-product__text">
                                 <h4>Latest Products</h4>
                                 <div class="latest-product__slider owl-carousel">
-                                    
                                     <div class="latest-prdouct__slider__item">
-                                    <?php foreach ($listSanPhamLast as $sanPham) {?>
-                                        <a href="#" class="latest-product__item">
+                                        <?php foreach($listSanPhamA as $sanPham ) {?>
+                                        <a href="<?= BASE_URL. '?act=chi-tiet-san-pham&id_san_pham='.$sanPham['id'] ?>" class="latest-product__item">
                                             <div class="latest-product__item__pic">
-                                              <a href="<?= BASE_URL. '?act=chi-tiet-san-pham&id_san_pham=' .$sanPham['id']?>">  <img src="<?= $sanPham['hinh_anh'] ?>" alt=""></a>
+                                                <img src="<?= $sanPham['hinh_anh'] ?>" alt="">
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6><?= $sanPham['ten_san_pham'] ?></h6>
                                                 <span><?= number_format($sanPham['gia_san_pham'], 0, ',', '.') ?>VND</span>
                                             </div>
                                         </a>
-                                        
                                         <?php } ?>
                                     </div>
                                     <div class="latest-prdouct__slider__item">
-                                    <?php foreach ($listSanPhamLast as $sanPham) {?>
-                                        <a href="#" class="latest-product__item">
+                                    <?php foreach($listSanPhamC as $sanPham ) {?>
+                                        <a href="<?= BASE_URL. '?act=chi-tiet-san-pham&id_san_pham='.$sanPham['id'] ?>" class="latest-product__item">
                                             <div class="latest-product__item__pic">
-                                            <a href="<?= BASE_URL. '?act=chi-tiet-san-pham&id_san_pham=' .$sanPham['id']?>">  <img src="<?= $sanPham['hinh_anh'] ?>" alt=""> </a>
+                                                <img src="<?= $sanPham['hinh_anh'] ?>" alt="">
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6><?= $sanPham['ten_san_pham'] ?></h6>
                                                 <span><?= number_format($sanPham['gia_san_pham'], 0, ',', '.') ?>VND</span>
                                             </div>
                                         </a>
-                                        
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -161,7 +158,7 @@
                 <div class="col-lg-9 col-md-7">
                     <div class="product__discount">
                         <div class="section-title product__discount__title">
-                            <h2>Sale Off</h2>
+                            <h2>Giảm giá</h2>
                         </div>
                         <div class="row">
                             <div class="product__discount__slider owl-carousel">
@@ -178,7 +175,7 @@
                                             </ul>
                                         </div>
                                         <div class="product__discount__item__text">
-                                            <span>Hot sale</span>
+                                            <span>Giảm sốc</span>
                                             <h5><a href="#"><?= $sanPhamSale['ten_san_pham'] ?></a></h5>
                                             <div class="product__item__price"><?= number_format($sanPhamSale['gia_san_pham'], 0, ',', '.') ?>VND <span><?= number_format($sanPhamSale['gia_khuyen_mai'], 0, ',', '.') ?>VND</span></div>
                                         </div>

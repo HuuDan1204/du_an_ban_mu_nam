@@ -49,14 +49,14 @@
         </thead>
         <tbody>
             <?php if (!empty($donHangs)): ?>
-                <?php foreach ($donHangs as $order): ?>
+                <?php foreach ($donHangs as $key=>$order): ?>
                     <tr>
-                        <td><?= htmlspecialchars($order['id'] ?? 'N/A') ?></td>
+                        <td><?= $key++ ?></td>
                         <td><?= htmlspecialchars($order['ma_don_hang'] ?? 'N/A') ?></td>
                         <td><?= htmlspecialchars($order['ten_nguoi_nhan'] ?? 'N/A') ?></td>
                         <td><?= number_format($order['tong_tien'] ,0,',','.')?>VND</td>
                         <td>
-    <a href="<?= BASE_URL . '?act=chi-tiet-don-hang&id=' . $order['id'] ?>" class="btn btn-danger">Xem chi tiết</a>
+    <a href="<?= BASE_URL . '?act=chi-tiet-don-hang&id_don_hang=' . $order['id'] ?>" class="btn btn-danger">Xem chi tiết</a>
 </td>
     
                     </tr>

@@ -55,7 +55,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <h4>
-                                        <i class="fas fa-book-open"></i> Tiệm sách của Shi
+                                        <i class="fas fa-book-open"></i> Silly Shop
                                         <small class="float-right">Ngày đặt : <?= Fomatdate($donhang['ngay_dat']); ?>
                                         </small>
                                     </h4>
@@ -110,8 +110,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php $tong_tien = 0; ?>
-                                            <?php foreach ($sanPhamDonHang as $key => $sanpham) { ?>
+                                            <?php $tong_tien = 0;  
+                                            $phiShip = 30000 ?>
+                                            <?php foreach ($sanPhamDonHang as $key => $sanpham) { $gia = ($sanpham['gia_khuyen_mai'] != 0 ) ? $sanpham['gia_khuyen_mai'] : $sanpham['gia_san_pham']; ?>
                                                 <tr>
                                                     <td><?= $key + 1 ?></td>
                                                     <td><?= $sanpham['ten_san_pham'];  ?></td>
@@ -136,23 +137,27 @@
 
                                     <div class="table-responsive">
                                         <table class="table">
+                                          
+                                            <?php if (!empty($voucher)){ ?>
                                             <tr>
-                                                <th style="width:50%">Thành tiền:</th>
-                                                <td><?=number_format( $tong_tien )?></td>
+                                                <th>Giảm giá (Voucher):</th>
+                                                <td>- <?= number_format($tien_giam, 0, ',', '.') ?> VND</td>
+                                                <?php }else { ?>
+                                                <th>Giảm giá (Voucher ):  </th>
+                                                <td>0VND</td>
+                                            <?php } ?>
                                             </tr>
-                                            <!-- <tr>
-                                                <th>Tax (9.3%)</th>
-                                                <td>$10.34</td>
-                                            </tr> -->
+                                            
                                             <tr>
                                                 <th>Phí vận chuyển:</th>
-                                                <!-- <td><?php $phiShip = ''; if($donHang['dia_chi']==="Hà Nội"){ $phiShip = 0 ;} else {$phiShip = 20 ;}  ?><?= $phiShip ?></td> -->
-                                                 <td><?= number_format(30000) ?></td>
+                                                <td><?= number_format($phiShip, 0, ',', '.') ?> VND</td>
                                             </tr>
                                             <tr>
-                                                <th>Tổng tiền:</th>
-                                                <td><?= number_format($tong_tien + 30000) ?></td>
+                                                <th>Thành tiền:</th>
+                                                <td><?php $tong_thanh_toan = isset($tien_giam) ? ($tong_tien - $tien_giam + $phiShip ) : $tong_tien + $phiShip;
+                                                echo  number_format($tong_thanh_toan  , 0, ',', '.') ?> VND</td>
                                             </tr>
+                                            
                                         </table>
                                     </div>
                                 </div>

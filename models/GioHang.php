@@ -63,17 +63,7 @@
         }
     }   
 
-    public function getDetailGioHang($id){
-        try{
-            $sql = 'SELECT * FROM chi_tiet_gio_hangs WHERE gio_hang_id = :gio_hang_id ';
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute([':gio_hang_id'=>$id]);
-            return $stmt->fetchAll();
-        }
-        catch (Exception $e) {
-            echo "Lỗi" . $e->getMessage();
-        }
-    }
+    
     public function botSanPham($san_pham_id){
         try{
             $sql = 'UPDATE chi_tiet_gio_hangs SET so_luong = so_luong - 1 WHERE san_pham_id=:id';
@@ -136,7 +126,7 @@ public function getVoucher($ma_voucher)
     try {
         $sql = 'SELECT * FROM vouchers WHERE ma_voucher = :ma_voucher AND so_luong !=0 AND trang_thai =1 ';
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute([':ma_voucher' => $ma_voucher]);
+        $stmt->execute([':ma_voucher' => $ma_voucher]); 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         echo 'Lỗi: ' . $e->getMessage();

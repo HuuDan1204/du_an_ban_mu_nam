@@ -31,36 +31,28 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="<?= BASE_URL_ADMIN.'/?act=sua-don-hang';?>" method="post" >
-                <input type="text" name="id" value="<?= $donhang['id'] ?>" hidden>
+              <form action="<?= BASE_URL_ADMIN.'?act=sua-don-hang'?>" method="post" >
+                <input type="hidden" name="don_hang_id" value="<?= $donhang['don_hang_id'] ?>" >
                 <div class="card-body">
                   <div class="form-group">
                     <label >Tên người nhận</label>
                     <input type="text" name="ten_nguoi_nhan" class="form-control" value="<?= $donhang['ten_nguoi_nhan'] ?>" placeholder="Nhập tên danh mục">
-                    <?php if(isset($error['ten_nguoi_nhan'])) {?>
-                      <p class="text-danger"><?= $error['ten_nguoi_nhan'] ?></p>
-                      <?php }?>
+                    
                   </div>
                   <div class="form-group">
                     <label >Số điện thoại</label>
                     <input type="number" name="sdt_nguoi_nhan" class="form-control" value="<?= $donhang['sdt_nguoi_nhan'] ?>" placeholder="Nhập tên danh mục">
-                    <?php if(isset($error['sdt_nguoi_nhan'])) {?>
-                      <p class="text-danger"><?= $error['sdt_nguoi_nhan'] ?></p>
-                      <?php }?>
+                   
                   </div>
                   <div class="form-group">
                     <label >Email</label>
                     <input type="email" name="email_nguoi_nhan" class="form-control" value="<?= $donhang['email_nguoi_nhan'] ?>" placeholder="Nhập tên danh mục">
-                    <?php if(isset($error['email_nguoi_nhan'])) {?>
-                      <p class="text-danger"><?= $error['email_nguoi_nhan'] ?></p>
-                      <?php }?>
+                   
                   </div>
                   <div class="form-group">
                     <label >Địa chỉ</label>
                     <input type="text" name="dia_chi_nguoi_nhan" class="form-control" value="<?= $donhang['dia_chi_nguoi_nhan'] ?>" placeholder="Nhập tên danh mục">
-                    <?php if(isset($error['dia_chi_nguoi_nhan'])) {?>
-                      <p class="text-danger"><?= $error['dia_chi_nguoi_nhan'] ?></p>
-                      <?php }?>
+                   
                   </div>
                     <div class="form-group" >
                       <label >Ghi chú</label>
@@ -78,12 +70,22 @@
                          $trangthai['id'] == $donhang['trang_thai_id'] ? 'selected' :'' 
                        ?>
                       <?php
-                      
+                         if ($donhang['trang_thai_id'] == 1) {
+                          $colorAlerts = 'primary';
+                      } else if ($donhang['trang_thai_id'] >= 2 && $donhang['trang_thai_id'] <= 9) {
+                          $colorAlerts = 'warning';
+                      } else if ($donhang['trang_thai_id'] == 10) {
+                          $colorAlerts = 'success';
+                      } else {
+                          $colorAlerts = 'danger';
+                      }
                       if( $donhang['trang_thai_id'] > $trangthai['id'] 
                            || $donhang['trang_thai_id'] == 9
                            || $donhang['trang_thai_id'] == 10
                            || $donhang['trang_thai_id'] == 11
-                           ){
+                           
+                           )
+                           {
                             echo 'disabled' ;
                         } 
                         
