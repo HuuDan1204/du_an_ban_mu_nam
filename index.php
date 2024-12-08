@@ -38,6 +38,7 @@ match ($act) {
      'chi-tiet-san-pham' => (new HomeController ()) ->chiTietSanPham(),
      'tim-kiem-san-pham' => (new HomeController ()) ->timkiemsanpham(),
      'bai-viet'  => (new HomeController ()) ->baiviet(),
+     'lien-he' => (new HomeController ()) ->lienhe(),
  
      
      //thanh toán

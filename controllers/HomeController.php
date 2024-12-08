@@ -747,6 +747,9 @@ public function timkiemsanpham() {
 public function baiviet() {
     require_once './views/danhmuc/BaiViet.php'; 
 }
+public function lienhe() {
+    require_once './views/danhmuc/LienHe.php';
+}
 
 
 
