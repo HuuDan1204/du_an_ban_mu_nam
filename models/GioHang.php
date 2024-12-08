@@ -20,7 +20,14 @@
     }
 
     }
-    
+    public function getSanPhamById($san_pham_id)
+{
+    $sql = "SELECT * FROM san_phams WHERE id = ?";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute([$san_pham_id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 
     public function getAddGioHang($user_id){
         try {

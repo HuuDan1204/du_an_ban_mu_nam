@@ -10,7 +10,7 @@
                         <ul>
                         <?php foreach($listDanhMuc as $danhmuc ) {?>
                         
-                            <li><a href="#"><?= $danhmuc['ten_danh_muc'];   ?></a></li>
+                            <a href="<?= BASE_URL.'?act=tim-kiem-danh-muc&danh_muc_id='.$danhmuc['id'] ?>" class="nav-item nav-link"><?= $danhmuc['ten_danh_muc'] ?></a>
                             
                         
                         <?php } ?>
@@ -20,13 +20,9 @@
                 <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form action="#">
-                                <div class="hero__search__categories">
-                                    Danh mục
-                                    <span class="arrow_carrot-down"></span>
-                                </div>
-                                <input type="text" placeholder="Bạn muốn tìm kiếm gì?">
-                                <button type="submit" class="site-btn">Tìm kiếm</button>
+                        <form action="<?= BASE_URL . '?act=tim-kiem-san-pham' ?>" method="post" >
+                                <input type="text" placeholder="Bạn muốn tìm kiếm gì?" name="search" >
+                                <button type="submit" class="site-btn"  >TÌm kiếm</button>
                             </form>
                         </div>
                         <div class="hero__search__phone">

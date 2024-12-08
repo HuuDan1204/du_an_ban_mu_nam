@@ -284,56 +284,74 @@ class HomeController
         }
     }
     
-      public function addGioHang(){
+    public function addGioHang()
+    {
         if (!isset($_SESSION['user'])) {
             echo "<script>
-        alert('Vui lòng đăng nhập để sử dụng giỏ hàng!');
-        window.location.href = '?act=login';
-                 </script>";
-        }
-        else{
+                alert('Vui lòng đăng nhập để sử dụng giỏ hàng!');
+                window.location.href = '?act=login';
+            </script>";
+            exit();
+        } else {
             $user_id = $_SESSION['user']['id'];
             $gioHang = $this->modelGioHang->checkGioHang($user_id);
-            // var_dump($gioHang);die;
-            if($gioHang){
+    
+            if ($gioHang) {
                 $gio_hang_id = $gioHang['id'];
-                // var_dump($gioHang);die;
+            } else {
+                $this->modelGioHang->getAddGioHang($user_id);
+                $gioHang = $this->modelGioHang->checkGioHang($user_id);
+                if (!$gioHang) {
+                    die("Lỗi khi tạo giỏ hàng!");
+                }
+                $gio_hang_id = $gioHang['id'];
             }
-            else{
-               $this->modelGioHang->getAddGioHang($user_id);
-               $gioHang = $this->modelGioHang->checkGioHang($user_id);
-               if(!$gioHang){
-                //  echo "<script>  alert('Lỗi!')</script>" ;
-                die("Lỗi");
-               }
-               $gio_hang_id = $gioHang['id'];
-            }
-            // var_dump($gio_hang_id);die;
+    
             $san_pham_id = $_GET['id_san_pham'];
-            $san_pham = $this->modelGioHang->checkSanPham($san_pham_id,$gio_hang_id);
-        //    var_dump($san_pham);die;
-            if($san_pham == true){
+    
+            // Kiểm tra tồn kho
+            $san_pham = $this->modelGioHang->getSanPhamById($san_pham_id); // Thêm hàm này vào modelGioHang
+            if ($san_pham['so_luong'] <= 0) {
+                echo "<script>
+                    alert('Sản phẩm hiện đã hết hàng. Vui lòng chọn sản phẩm khác!');
+                    window.location.href = '?act=/';
+                </script>";
+                exit();
+            }
+    
+            // Kiểm tra nếu sản phẩm đã tồn tại trong giỏ hàng
+            $san_pham_trong_gio = $this->modelGioHang->checkSanPham($san_pham_id, $gio_hang_id);
+    
+            if ($san_pham_trong_gio) {
+                // Kiểm tra nếu tổng số lượng vượt quá tồn kho
+                $tong_so_luong = $san_pham_trong_gio['so_luong'] + 1; // Giả định thêm 1 sản phẩm
+                if ($tong_so_luong > $san_pham['so_luong_ton']) {
+                    echo "<script>
+                        alert('Số lượng sản phẩm không đủ. Vui lòng kiểm tra lại!');
+                        window.location.href = '?act=/';
+                    </script>";
+                    exit();
+                }
                 $test = $this->modelGioHang->themSanPham($san_pham_id);
+            } else {
+                $so_luong = 1;
+                $test = $this->modelGioHang->ThemChiTietGioHang($gio_hang_id, $san_pham_id, $so_luong);
             }
-            else{
-                $so_luong = 1 ;
-                $test = $this->modelGioHang->ThemChiTietGioHang($gio_hang_id,$san_pham_id,$so_luong);
-                // print_r($test);die;
-            }
+    
             if ($test) {
                 echo "<script> 
-                alert('Thêm sản phẩm vào giỏ hàng thành công!');
-                window.location.href = '?act=/';
-                 </script>";
-                // echo "Thành công ";
+                    alert('Thêm sản phẩm vào giỏ hàng thành công!');
+                    window.location.href = '?act=/';
+                </script>";
             } else {
-                echo "<script > 
-                alert('Không thể thêm sản phẩm vào giỏ hàng!');
-                window.location.href = '?act=/';
-                 </script>";
+                echo "<script> 
+                    alert('Không thể thêm sản phẩm vào giỏ hàng!');
+                    window.location.href = '?act=/';
+                </script>";
             }
         }
     }
+    
 
     public function tangSanPham(){
         $id_gio_hang = $_GET['id_gio_hang'];
@@ -723,7 +741,9 @@ public function lichsudonhang()
                 if ($result) {
                     echo "<script> 
                     alert('Hủy hàng thành công . Chúc bạn 1 ngày tốt lành');
-                    </script>";
+                    window.location.href = 'http://localhost/du_an_ban_mu_nam/';
+                </script>";
+                
                 } else {
                     $_SESSION['error'] = "Không thể hủy đơn hàng. Vui lòng thử lại.";
                 }
@@ -731,7 +751,7 @@ public function lichsudonhang()
                 $_SESSION['error'] = "Đơn hàng không thể hủy vì đã được xác nhận hoặc xử lý.";
             }
             // var_dump($_SESSION);exit;
-            header("Location: http://localhost/du_an_ban_mu_nam/");
+           
             exit();
         }
     }
@@ -742,13 +762,76 @@ public function lichsudonhang()
 
 
 public function timkiemsanpham() {
-    require_once './views/layouts/TimKiem.php'; 
+    $listSP = $this->modelSanPham->getAllSanPham();
+        $listDanhMuc = $this->modelDanhMuc->getAllDanhMuc();
+        $result = [];
+        if (isset($_POST['search'])) {
+            foreach ($listSP as $item) {
+                if (strpos(strtolower($item['ten_san_pham']), strtolower($_POST['search'])) !== false) {
+                    $result[] = $item;
+                }
+            }
+        }
+        $SanPham = $result;
+    require_once './views/danhmuc/SanPhamTimKiem.php'; 
+}
+
+public function timKiemDanhMuc(){
+    $danh_muc_id = $_GET['danh_muc_id'];
+    $listSanPhamA = $this->modelSanPham->getSanPhamA();
+    $listSanPhamC = $this->modelSanPham->getSanPhamC();
+    $listDanhMuc = $this->modelDanhMuc->getAllDanhMuc();
+    $SanPham = $this->modelSanPham->getSanPhamTuDanhMuc($danh_muc_id);
+    require_once './views/danhmuc/SanPhamTimKiem.php';
 }
 public function baiviet() {
     require_once './views/danhmuc/BaiViet.php'; 
 }
 
+public function infoUser()
+    {
+        $tai_khoan_id = $_SESSION['user']['id'];
+        $tai_khoan = $this->modelTaiKhoan->getInfo($tai_khoan_id);
+        require_once './views/taikhoan/infoKhachHang.php';
+    }
+    // cap nhat  thong tin cá nhân
+    public function capNhatThongTin()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $id = $_SESSION['user']['id'];
+            $ho_ten = $_POST['ho_ten'];
+            $email = $_POST['email'];
+            $so_dien_thoai = $_POST['so_dien_thoai'];
+            $dia_chi = $_POST['dia_chi'];
+            // $hinh_anh = $_FILES['anh_dai_dien'] ?? null ;
+            $error = [];
+            if (empty($ho_ten)) {
+                $error['ho_ten'] = 'Họ tên không được để trống';
+            }
+            if (empty($email)) {
+                $error['email'] = 'Email không được để trống';
+            }
+            if (empty($so_dien_thoai)) {
+                $error['so_dien_thoai'] = 'Số điện thoại không được để trống';
+            }
+            if (empty($dia_chi)) {
+                $error['dia_chi'] = 'Địa chỉ không được để trống';
+            }
+            if (empty($error)) {
+                $this->modelTaiKhoan->updateThongTin($id, $ho_ten, $email, $so_dien_thoai, $dia_chi);
+                echo "<script>
+        alert('Cập nhật thành công !');
+        window.location.href = '?act=/';
+                 </script>";
+       
+                // var_dump($error);die;
 
+            } else {
+                $thongtin = ['id' => $id, 'ho_ten' => $ho_ten, 'email' => $email, 'so_dien_thoai' => $so_dien_thoai, 'dia_chi' => $dia_chi];
+                require_once "./views/taikhoan/infoKhachHang.php";
+            }
+        }
+    }
 
 
 

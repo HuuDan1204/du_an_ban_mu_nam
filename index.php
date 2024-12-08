@@ -38,6 +38,7 @@ match ($act) {
      'chi-tiet-san-pham' => (new HomeController ()) ->chiTietSanPham(),
      'tim-kiem-san-pham' => (new HomeController ()) ->timkiemsanpham(),
      'bai-viet'  => (new HomeController ()) ->baiviet(),
+     'tim-kiem-danh-muc' =>(new HomeController())->timKiemDanhMuc(),
  
      
      //thanh toán
@@ -52,10 +53,14 @@ match ($act) {
       'huy-don-dang' => (new HomeController())-> huyDonHang(),
 
     // Đăng nhập
-    'login' => (new HomeController())->formLogin(),
-    'check-login' => (new HomeController())->login(),
-    'logout-admin' => (new HomeController())->logout(),
-    'logout-user' => (new HomeController())->logoutUser(),
+      'login' => (new HomeController())->formLogin(),
+      'check-login' => (new HomeController())->login(),
+      'logout-admin' => (new HomeController())->logout(),
+      'logout-user' => (new HomeController())->logoutUser(),
+
+    // thông tin cá nhân
+      'thong-tin-ca-nhan' => (new HomeController())->infoUser(),
+      'cap-nhat-thong-tin-ca-nhan' => (new HomeController())->capNhatThongTin(),
 
     // Đăng kí
     'sign-up' => (new HomeController())->formSignUp(),

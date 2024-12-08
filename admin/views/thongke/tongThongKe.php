@@ -191,7 +191,12 @@ footer {
 
     <h3>Doanh thu từ ngày <?= $tu_ngay ?> đến ngày <?= $den_ngay ?></h3>
    <h1> <p class="text-danger" >Số đơn hàng: <?= $doanhThu['so_don_hang'] ?></p></h1>
-   <h1> <p class="text-danger" >Doanh thu: <?= number_format($doanhThu['doanh_thu'], 0, ',', '.') ?> VND</p></h1>
+   <h1>
+    <p class="text-danger">
+        Doanh thu: <?= number_format(isset($doanhThu['doanh_thu']) ? $doanhThu['doanh_thu'] : 0, 0, ',', '.') ?> VND
+    </p>
+</h1>
+
 
     <h3>Top 5 khách hàng mua nhiều nhất</h3>
     <table class="table table-strpied table-hover ">

@@ -72,66 +72,7 @@
         <div class="loader"></div>
     </div>
 
-    <!-- Humberger Begin -->
-    <!-- <div class="humberger__menu__overlay"></div>
-    <div class="humberger__menu__wrapper">
-        <div class="humberger__menu__logo">
-            <a href="#"><img src="./uploads/logo.png" alt=""></a>
-        </div>
-        <div class="humberger__menu__cart">
-            <ul>
-                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                <li><a href="<?= BASE_URL . '?act=gio-hang'  ?>"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-            </ul>
-            <div class="header__cart__price">item: <span>$150.00</span></div>
-        </div>
-        <div class="humberger__menu__widget">
-            <div class="header__top__right__language">
-                <img src="./assets/img/language.png" alt="">
-                <div>English</div>
-                <span class="arrow_carrot-down"></span>
-                <ul>
-                    <li><a href="#">Spanis</a></li>
-                    <li><a href="#">English</a></li>
-                </ul>
-            </div>
-            <div class="header__top__right__auth">
-                <a href="SanPham.php"><i class="fa fa-user"></i> Login</a>
-                <ul>
-                    <li><a href="#">Spanis</a></li>
-                    <li><a href="#">English</a></li>
-                </ul>
-            </div>
-        </div> -->
-        <!-- <nav class="humberger__menu__nav mobile-menu">
-            <ul>
-                <li class="active"><a href="./index.html">Trang chủ</a></li>
-                <li><a href="./shop-grid.html">Sản phẩm</a></li>
-                <li><a href="#">Danh mục</a>
-                    <ul class="header__menu__dropdown">
-                        <li><a href="./shop-details.html">Shop Details</a></li>
-                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                        <li><a href="./checkout.html">Check Out</a></li>
-                        <li><a href="./blog-details.html">Blog Details</a></li>
-                    </ul>
-                </li>
-                <li><a href="./blog.html">Bài viết</a></li>
-                <li><a href="./contact.html">Liên hệ</a></li>
-            </ul>
-        </nav>
-        <div id="mobile-menu-wrap"></div>
-        <div class="header__top__right__social">
-            <a href="https://www.facebook.com/profile.php?id=61567181994392"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-linkedin"></i></a>
-            <a href="#"><i class="fa fa-pinterest-p"></i></a>
-        </div>
-        <div class="humberger__menu__contact">
-            <ul>
-                <li><i class="fa fa-envelope"></i> iamvuahaitac1@gmail.com</li>
-                <li>Miễn phí ship trong bán kính 3km</li>
-            </ul>
-        </div> -->
+    
     </div>
     <!-- Humberger End -->
 
@@ -166,21 +107,27 @@
                                 </ul>
                             </div>
                             <div class="header__top__right__auth">
-                                        <?php if (isset($_SESSION['user'])): ?>
-                                            <!-- Nếu người dùng đã đăng nhập, hiển thị "Xin chào" và dropdown menu -->
-                                            <div class="user-menu">
-                                                <a href="profile.php"><i class="fa fa-user"></i> Xin chào, <?= $_SESSION['user']['name'] ?></a>
-                                                <ul class="user-menu__dropdown">
-                                                    <li><a href="profile.php">Xem thông tin cá nhân</a></li>
-                                                    <li><a href="<?= BASE_URL .'?act=lich-su-don-hang' ?>">Lịch sử đơn hàng</a></li>
-                                                    <li><a href="<?= BASE_URL . '?act=logout-user' ?>">Đăng xuất</a></li>
-                                                </ul>
-                                            </div>
-                                        <?php else: ?>
-                                            <!-- Nếu chưa đăng nhập, hiển thị nút Login -->
-                                            <a href="<?= BASE_URL .'?act=login' ?>"><i class="fa fa-user"></i> Đăng nhập</a>
-                                        <?php endif; ?>
-                                    </div>
+    <?php if (isset($_SESSION['user'])): ?>
+        <!-- Nếu người dùng đã đăng nhập, hiển thị "Xin chào" và dropdown menu -->
+        <div class="user-menu">
+            <a href="<?= BASE_URL . '?act=thong-tin-ca-nhan' ?>"><i class="fa fa-user"></i> Xin chào, <?= $_SESSION['user']['name']  ?></a>
+            <ul class="user-menu__dropdown">
+                <li><a href="<?= BASE_URL . '?act=thong-tin-ca-nhan' ?>">Xem thông tin cá nhân</a></li>
+                <li><a href="<?= BASE_URL .'?act=lich-su-don-hang' ?>">Lịch sử đơn hàng</a></li>
+                <li><a href="<?= BASE_URL . '?act=logout-user' ?>">Đăng xuất</a></li>
+                
+                <?php if (isset($_SESSION['user']['chuc_vu_id']) && $_SESSION['user']['chuc_vu_id'] == 1): ?>
+                    <!-- Nếu là quản trị viên (chuc_vu_id = 1), hiển thị thêm nút vào quản trị -->
+                    <li><a href="<?= BASE_URL_ADMIN ?>">Vào quản trị</a></li>
+                <?php endif; ?>
+            </ul>
+        </div>
+    <?php else: ?>
+        <!-- Nếu chưa đăng nhập, hiển thị nút Login -->
+        <a href="<?= BASE_URL .'?act=login' ?>"><i class="fa fa-user"></i> Đăng nhập</a>
+    <?php endif; ?>
+</div>
+
 
                         </div>
                     </div>
@@ -212,7 +159,7 @@
                             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
                             <li><a href="<?= BASE_URL . '?act=gio-hang'  ?>"><i class="fa fa-shopping-bag"></i> <span></span></a></li>
                         </ul>
-                        <div class="header__cart__price">item: <span>hhh</span></div>
+                       
                     </div>
                 </div>
             </div>

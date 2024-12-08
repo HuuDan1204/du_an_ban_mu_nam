@@ -33,7 +33,7 @@
                             <h4>Danh mục</h4>
                             <ul>
                                 <?php foreach($listDanhMuc as $danhMuc ){ ?>
-                               <li ><a href=""><?= $danhMuc['ten_danh_muc'] ?></a></li>
+                                    <a href="<?= BASE_URL.'?act=tim-kiem-danh-muc&danh_muc_id='.$danhMuc['id'] ?>" class="nav-item nav-link"><?= $danhMuc['ten_danh_muc'] ?></a>
                     <?php }?>
                             </ul>
                         </div>
@@ -162,26 +162,43 @@
                         </div>
                         <div class="row">
                             <div class="product__discount__slider owl-carousel">
-                            <?php foreach($listSanPhamSale as $sanPhamSale ) {?>
-                                <div class="col-lg-4">
-                                    <div class="product__discount__item">
-                                        <div class="product__discount__item__pic set-bg">
-                                        <a href="<?= BASE_URL. '?act=chi-tiet-san-pham&id_san_pham='.$sanPhamSale['id'] ?>"><img src="<?= $sanPhamSale['hinh_anh'] ?>" alt=""></a>
-                                            <div class="product__discount__percent">-10%</div>
-                                            <ul class="product__item__pic__hover">
-                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                <li><a href="<?= BASE_URL . '?act=them-gio-hang&id_san_pham='.$sanPhamSale['id'] ?>"><i class="fa fa-shopping-cart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="product__discount__item__text">
-                                            <span>Giảm sốc</span>
-                                            <h5><a href="#"><?= $sanPhamSale['ten_san_pham'] ?></a></h5>
-                                            <div class="product__item__price"><?= number_format($sanPhamSale['gia_san_pham'], 0, ',', '.') ?>VND <span><?= number_format($sanPhamSale['gia_khuyen_mai'], 0, ',', '.') ?>VND</span></div>
+                                <?php foreach($listSanPhamSale as $sanPhamSale) { ?>
+                                    <div class="col-lg-4">
+                                        <div class="product__discount__item">
+                                            <div class="product__discount__item__pic set-bg">
+                                                <a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham=' . $sanPhamSale['id'] ?>">
+                                                    <img src="<?= $sanPhamSale['hinh_anh'] ?>" alt="">
+                                                </a>
+                                                <?php if (!empty($sanPhamSale['gia_khuyen_mai'])): ?>
+                                                    <div class="product__discount__percent">
+                                                        -<?= round((($sanPhamSale['gia_san_pham'] - $sanPhamSale['gia_khuyen_mai']) / $sanPhamSale['gia_san_pham']) * 100) ?>%
+                                                    </div>
+                                                <?php endif; ?>
+                                                <ul class="product__item__pic__hover">
+                                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                                    <li><a href="<?= BASE_URL . '?act=them-gio-hang&id_san_pham=' . $sanPhamSale['id'] ?>">
+                                                        <i class="fa fa-shopping-cart"></i>
+                                                    </a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="product__discount__item__text">
+                                                <span>Giảm sốc</span>
+                                                <h5><a href="#"><?= $sanPhamSale['ten_san_pham'] ?></a></h5>
+                                                <?php if (!empty($sanPhamSale['gia_khuyen_mai'])): ?>
+                                                    <div class="product__item__price">
+                                                        <?= number_format($sanPhamSale['gia_khuyen_mai'], 0, ',', '.') ?>VND 
+                                                        <span><?= number_format($sanPhamSale['gia_san_pham'], 0, ',', '.') ?>VND</span>
+                                                    </div>
+                                                <?php else: ?>
+                                                    <div class="product__item__price">
+                                                        <?= number_format($sanPhamSale['gia_san_pham'], 0, ',', '.') ?>VND
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                               <?php } ?>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>

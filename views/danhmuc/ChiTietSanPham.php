@@ -60,8 +60,9 @@
                         <a href="<?= BASE_URL . '?act=them-gio-hang&id_san_pham='.$listSanPham['id'] ?>" class="primary-btn">Thêm vào giỏ hàng</a>
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
-                            <li><b>Trạng thái</b> <span><?= $listSanPham['trang_thai'] ? 'Còn Hàng' : 'Hết hàng' ?></span></li>
-                            <li><b>Vận chuyển</b> <span>Ship trong ngày <samp>Miễn phí trong ngày </samp></span></li>
+                            <li><b>Số lượng</b><span><?= $listSanPham['so_luong'] ?></span></li>
+                            <li><b>Trạng thái</b> <span><?= ($listSanPham['so_luong'] > 0) ? 'Còn Hàng' : 'Hết hàng' ?></span></li>
+
                             <!-- <li><b>Weight</b> <span>0.5 kg</span></li> -->
                             <li><b>Chia sẻ với</b>
                                 <div class="share">
